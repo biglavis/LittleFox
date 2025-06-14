@@ -1,0 +1,483 @@
+/*  ,-----. ,-----. ,--.  ,--.,------.,--. ,----.    
+ * '  .--./'  .-.  '|  ,'.|  ||  .---'|  |'  .-./    
+ * |  |    |  | |  ||  |' '  ||  `--, |  ||  | .---. 
+ * '  '--'\'  '-'  '|  | `   ||  |`   |  |'  '--'  | 
+ *  `-----' `-----' `--'  `--'`--'    `--' `------'  
+ */
+
+:root {
+  /* Navigation toolbar width 
+   * Max width is applied when url bar is expanded
+   */
+  --navbarWidth: max(35vw, 500px);
+  --navbarMaxWidth: max(60vw, 800px);
+
+  /* Dynamic tab width */
+  --activeTabWidth: clamp(100px, 24vw, 240px);    
+  --inactiveTabWidth: clamp(100px, 18vw, 180px);
+
+  /* Preferred find bar width */
+  /* Set to 0px for minimum width */
+  --findbarLength: calc(var(--findbarMinWidthExpanded) + (100vw - var(--findbarMinWidthExpanded)) * 0.1);
+
+  /* Find bar distance from window corners */
+  --findbarTop: 12px;
+  --findbarRight: max(2vw, 30px); /* scrollbar is 18px */
+
+  /* Find bar transition duration */
+  --findbarTransitionDuration: 100ms;
+
+  /* Find bar transition length */
+  --findbarTransitionLength: 20px;
+}
+
+
+
+/*  ,----.   ,--.    ,-----. ,-----.    ,---.  ,--.    ,---.   
+ * '  .-./   |  |   '  .-.  '|  |) /_  /  O  \ |  |   '   .-'  
+ * |  | .---.|  |   |  | |  ||  .-.  \|  .-.  ||  |   `.  `-.  
+ * '  '--'  ||  '--.'  '-'  '|  '--' /|  | |  ||  '--..-'    | 
+ *  `------' `-----' `-----' `------' `--' `--'`-----'`-----'  
+ */
+
+:root {
+  /* hide panel borders */
+  --arrowpanel-border-color: transparent !important;
+
+  /* hide focus borders */
+  --toolbar-field-focus-border-color: transparent !important;
+}
+
+/* hide context menu border */
+.menupopup-arrowscrollbox {
+  border: none !important;
+}
+
+/* hide all other borders */
+/* #navigator-toolbox, #navigator-toolbox * {
+  border: none !important;
+} */
+
+
+
+/* ,--.     ,---.,--.   ,--.,-----. ,--. ,--.,--------. 
+ * |  |    /  O  \\  `.'  /'  .-.  '|  | |  |'--.  .--' 
+ * |  |   |  .-.  |'.    / |  | |  ||  | |  |   |  |    
+ * |  '--.|  | |  |  |  |  '  '-'  ''  '-'  '   |  |    
+ * `-----'`--' `--'  `--'   `-----'  `-----'    `--'    
+ */
+
+/* EXPANDED VIEW */
+@media (min-width: 1200px) {
+  #navigator-toolbox {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  #toolbar-menubar {
+    order: 0;
+    width: 100% !important;
+  }
+
+  #nav-bar {
+    order: 1;
+    width: var(--navbarWidth);
+    background: none !important;
+  }
+  #nav-bar:has(#urlbar[open]) {
+    width: var(--navbarMaxWidth);
+  }
+
+  #TabsToolbar {
+    order: 2;
+    width: auto !important;
+  }
+  #navigator-toolbox:has(#urlbar[open]) #TabsToolbar {
+    margin-left: calc(var(--navbarWidth) - var(--navbarMaxWidth)) !important;
+  }
+
+  #PersonalToolbar {
+    width: 100% !important;
+    order: 3 !important;
+    border-top-left-radius: var(--tab-border-radius) !important;
+    border-top-right-radius: var(--tab-border-radius) !important;
+  }
+}
+
+/* COLLAPSED VIEW */
+@media (max-width: 1200px) {
+  #nav-bar {
+    border-top-left-radius: var(--tab-border-radius) !important;
+    border-top-right-radius: var(--tab-border-radius) !important;
+  }
+}
+
+/* remove notifications toolbar */
+#notifications-toolbar {
+  display: none !important;
+}
+
+/* remove spacers */
+.titlebar-spacer {
+  display: none !important;
+}
+
+
+
+/* ,--.  ,--.  ,---.,--.   ,--.      ,-----.    ,---.  ,------.  
+ * |  ,'.|  | /  O  \\  `.'  /,-----.|  |) /_  /  O  \ |  .--. ' 
+ * |  |' '  ||  .-.  |\     / '-----'|  .-.  \|  .-.  ||  '--'.' 
+ * |  | `   ||  | |  | \   /         |  '--' /|  | |  ||  |\  \  
+ * `--'  `--'`--' `--'  `-'          `------' `--' `--'`--' '--' 
+ */
+
+/* hamburger menu */
+@media (min-width: 1200px) {
+  #PanelUI-button {
+    order: -2 !important;
+  }
+  #PanelUI-menu-button {
+    padding-inline-start: var(--toolbar-start-end-padding) !important;
+    padding-inline-end: var(--toolbarbutton-outer-padding) !important;
+  }
+}
+@media (max-width: 1200px) {
+  #PanelUI-button {
+    order: 99 !important;
+  }
+  #PanelUI-menu-button {
+    padding-inline-start: var(--toolbarbutton-outer-padding) !important;
+    padding-inline-end: var(--toolbar-start-end-padding) !important;
+  }
+}
+
+/* dynamic extensions button */
+@media (min-width: 1200px) {
+  #unified-extensions-button {
+    order: -1 !important;
+    justify-content: flex-start !important;
+  }
+}
+@media (max-width: 1200px) {
+  #unified-extensions-button {
+    order: 88 !important;
+    justify-content: flex-end !important;
+  }
+}
+#unified-extensions-button {
+  box-sizing: content-box !important;
+  width: 0px !important;
+  padding: 0px !important;
+  overflow: hidden !important;
+  transition: width 100ms ease-out, padding 100ms ease-out;
+}
+
+/* show when hamburger menu is hovered */
+#nav-bar:has(#PanelUI-menu-button:not([open]):hover) #unified-extensions-button {
+  width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
+  padding: 0px var(--toolbarbutton-outer-padding) !important;
+  transition-delay: 450ms !important;
+}
+/* show on interaction */
+#unified-extensions-button:is(:hover, [open], :has(.toolbarbutton-icon[showing])) {
+  width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
+  padding: 0px var(--toolbarbutton-outer-padding) !important;
+}
+
+/* dynamic forward/back button */
+#forward-button, #back-button {
+  box-sizing: content-box !important;
+  width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
+  overflow: hidden !important;
+  justify-content: flex-start !important;
+  transition: width 100ms ease-out, padding 100ms ease-out;
+}
+#forward-button[disabled], #back-button[disabled] {
+  width: 0px !important;
+  padding: 0px !important;
+}
+
+/* fix stop/reload button padding */
+#stop-reload-button {
+  padding: 0px var(--toolbarbutton-outer-padding) !important;
+}
+#stop-reload-button > * {
+  padding: 0px !important;
+}
+
+/* override default first item padding */
+#nav-bar-customization-target > :is(toolbarbutton, toolbaritem):not(#urlbar-container):first-child {
+  padding-inline-start: var(--toolbarbutton-outer-padding) !important;
+}
+
+/* pad first visible item */
+@media (max-width: 1200px) {
+  #nav-bar-customization-target > :nth-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)) {
+    padding-inline-start: var(--toolbar-start-end-padding) !important;
+  }
+}
+
+/* remove margins from extension buttons*/
+.toolbaritem-combined-buttons {
+  margin-inline: 0px !important;
+}
+
+
+
+/* ,--. ,--.,------. ,--.       ,-----.    ,---.  ,------.  
+ * |  | |  ||  .--. '|  |,-----.|  |) /_  /  O  \ |  .--. ' 
+ * |  | |  ||  '--'.'|  |'-----'|  .-.  \|  .-.  ||  '--'.' 
+ * '  '-'  '|  |\  \ |  '--.    |  '--' /|  | |  ||  |\  \  
+ *  `-----' `--' '--'`-----'    `------' `--' `--'`--' '--' 
+ */
+
+/* make url bar grow/shrink correctly in responce to dynamics buttons */
+#urlbar-container {
+  flex: 1 !important
+}
+
+/* hide url bar background */
+@media (min-width: 1200px) {
+  #urlbar:not(:hover, [focused]) #urlbar-background {
+    background: none !important;
+  }
+}
+
+/* pad url bar text */
+#urlbar:not([focused]) .urlbar-input-box {
+  padding-left: var(--urlbar-icon-padding) !important;
+}
+
+/* hide site information and "shield" button */
+#urlbar:not([focused]) :is(#identity-box, #tracking-protection-icon-container) {
+  display: none !important
+}
+
+/* hide all page action buttons except zoom */
+#urlbar:not(:hover, [focused]) #page-action-buttons > *:not([open], #urlbar-zoom-button) {
+  display: none !important
+}
+
+
+
+/* ,--------. ,---.  ,-----.   ,---.   
+ * '--.  .--'/  O  \ |  |) /_ '   .-'  
+ *    |  |  |  .-.  ||  .-.  \`.  `-.  
+ *    |  |  |  | |  ||  '--' /.-'    | 
+ *    `--'  `--' `--'`------' `-----'  
+ */
+
+/* pad left if last nav bar element isn't url bar */
+#navigator-toolbox:has(#urlbar-container ~:not(#unified-extensions-button)) #TabsToolbar {
+  margin-left: calc(var(--urlbar-margin-inline) - var(--tab-overflow-clip-margin)) !important;
+}
+
+/* remove gap after pinned tabs */
+#tabbrowser-tabs[haspinnedtabs] .tabbrowser-tab:nth-child(1 of :not([pinned])) {
+  margin-inline-start: 0px !important;
+}
+
+/* remove tab shadow & outline */
+.tabbrowser-tab .tab-background {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* hide tab close button */
+.tabbrowser-tab:not([pinned]) .tab-close-button {
+  display: none !important;
+}
+.tabbrowser-tab:not([pinned]):hover .tab-close-button {
+  display: inline-block !important;
+}
+
+/* dynamic tab width */
+.tabbrowser-tab[selected]:not([pinned]) {
+  max-width: var(--activeTabWidth) !important;
+}
+.tabbrowser-tab[fadein]:not([selected], [pinned]) {
+  max-width: var(--inactiveTabWidth) !important;
+}
+
+
+
+/* ,--------. ,-----.  ,-----. ,--.   ,-----.    ,---.  ,------.  
+ * '--.  .--''  .-.  ''  .-.  '|  |   |  |) /_  /  O  \ |  .--. ' 
+ *    |  |   |  | |  ||  | |  ||  |   |  .-.  \|  .-.  ||  '--'.' 
+ *    |  |   '  '-'  ''  '-'  '|  '--.|  '--' /|  | |  ||  |\  \  
+ *    `--'    `-----'  `-----' `-----'`------' `--' `--'`--' '--' 
+ */
+
+/* toolbar button margins */ 
+#PersonalToolbar toolbarbutton {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+}
+@media (max-width: 1200px) {
+  #PersonalToolbar toolbarbutton {
+    margin-top: 0px !important;
+  }
+}
+
+/* make bookmark button padding uniform */ 
+#PlacesToolbarItems toolbarbutton {
+  padding: var(--bookmark-block-padding) !important;
+}
+
+/* match chevron button size to bookmark button size */
+#PlacesChevron .toolbarbutton-icon {
+  width: calc(2 * var(--bookmark-block-padding) + 16px) !important;
+  height: calc(2 * var(--bookmark-block-padding) + 16px) !important;
+  padding: var(--bookmark-block-padding) !important;
+}
+
+
+
+                                                            
+/* ,------.,--.,--.  ,--.,------.         ,-----.    ,---.  ,------.  
+ * |  .---'|  ||  ,'.|  ||  .-.  \ ,-----.|  |) /_  /  O  \ |  .--. ' 
+ * |  `--, |  ||  |' '  ||  |  \  :'-----'|  .-.  \|  .-.  ||  '--'.' 
+ * |  |`   |  ||  | `   ||  '--'  /       |  '--' /|  | |  ||  |\  \  
+ * `--'    `--'`--'  `--'`-------'        `------' `--' `--'`--' '--' 
+ *  __________________________________________________________________________________
+ * |  ————————————————————————————————————————————————————————————   ———— ————   ———  |
+ * | | Find in page                                               | | /\ | \/ | | X | |
+ * |  ————————————————————————————————————————————————————————————   ———— ————   ———  |
+ *  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ *  8                        {textboxWidth}                        8  30   30  8  24 8                                  = 116px + {textboxWidth}
+ *  ______________________________________________________________________________________________________________
+ * |  ————————————————————————————————————————————————————————————   ———— ————   ————   ————   ————   ————   ———  |
+ * | | Find in page                                               | | /\ | \/ | | HL | | Aa | | a̲b̲ | | àë | | X | |
+ * |  ————————————————————————————————————————————————————————————   ———— ————   ————   ————   ————   ————   ———  |
+ *  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ *  8                        {textboxWidth}                        8  30   30  8  30  4  30  4  30  4  30  8  24 8      = 256px + {textboxWidth}
+ */
+
+:root {
+  --findbarMinWidth: calc(450px - 2 * var(--findbarRight)); /* minimum browser width = 450px */
+  --findbarMaxWidth: calc(100vw - 2 * var(--findbarRight));
+  --textboxMinWidth: calc(var(--findbarMinWidth) - 116px);
+  --findbarMinWidthExpanded: calc(var(--textboxMinWidth) + 256px);
+
+  --findbarWidth: max(var(--findbarLength), var(--findbarMinWidthExpanded));
+  --textboxWidth: calc(var(--findbarWidth) - 256px);
+}
+
+/* floating find bar */
+findbar {
+  position: absolute;
+  top: var(--findbarTop);
+  left: var(--findbarRight);
+  right: var(--findbarRight);
+  width: var(--findbarWidth);
+  min-width: var(--findbarMinWidth) !important;
+  max-width: var(--findbarMaxWidth) !important;
+  margin-left: auto !important;
+  border: none !important;
+  border-radius: var(--tab-border-radius) !important;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* findbar transiton */
+findbar {
+  height: 40px !important;
+  overflow-y: hidden !important;
+  transition-property: top, height, padding-block, visibility !important;
+  transition-duration: var(--findbarTransitionDuration), var(--findbarTransitionDuration), var(--findbarTransitionDuration), 0s !important;
+  transition-timing-function: ease-in-out, ease-in-out, ease-in-out, linear !important;
+  transition-delay: 0s, 0s, 0s, 0s !important;
+}
+findbar[hidden="true"] {
+  top: calc(var(--findbarTop) - var(--findbarTransitionLength)) !important;
+  height: 0px !important;
+  padding-block: 0px !important;
+  transition-delay: 0s, 0s, 0s, var(--findbarTransitionDuration) !important;
+}
+findbar > * {
+  transition-duration: calc(var(--findbarTransitionDuration) / 2) !important;
+  transition-delay: calc(var(--findbarTransitionDuration) / 2) !important;
+}
+findbar[hidden="true"] > * {
+  transition-delay: 0s !important;
+}
+
+/* allow textbox to grow */
+hbox[anonid="findbar-textbox-wrapper"], .findbar-textbox {
+  flex: 1 !important;
+}
+
+/* format textbox */
+.findbar-textbox {
+  min-width: var(--textboxMinWidth) !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.findbar-textbox:not([status]) {
+  background-color: transparent !important;
+}
+.findbar-textbox:not(:focus, [status]):hover {
+  background-color: var(--toolbar-field-background-color) !important;
+}
+
+/* position found matches label */
+label.found-matches {
+  position: absolute !important;
+  right: calc(100% - var(--textboxWidth)) !important;
+  text-align: right !important;
+  margin: 0px !important;
+}
+
+/* hide other labels */
+.findbar-label:not(.found-matches) {
+  display: none !important;
+}
+
+/* simplify checkboxes */
+.findbar-container > checkbox {
+  width: 30px !important;
+  height: 24px !important;
+  justify-content: center !important;
+  margin: 0px 2px !important;
+}
+.findbar-container > checkbox:first-of-type {
+  margin-left: 0px !important;
+}
+.findbar-container > checkbox:last-of-type {
+  margin-right: 0px !important;
+}
+.findbar-container > checkbox *{
+  display: none !important;
+}
+
+/* format checkboxes */
+.findbar-highlight::after {
+  content: "HL";
+  font-weight: bold;
+}
+.findbar-case-sensitive::after {
+  content: "Aa";
+  font-weight: bold;
+  color: var(--toolbar-color);
+}
+.findbar-match-diacritics::after {
+  content: "àë";
+  font-weight: bold;
+}
+.findbar-entire-word::after {
+  content: "ab";
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--toolbar-color);
+}
+
+/* checkbox hover/active background */
+.findbar-container > checkbox:not([checked]):hover {
+  background-color: var(--toolbarbutton-hover-background) !important;
+  border-radius: 4px !important;
+}
+.findbar-container > checkbox[checked] {
+  background-color: var(--toolbarbutton-active-background) !important;
+  border-radius: 4px !important;
+}

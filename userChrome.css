@@ -6,9 +6,8 @@
  */
 
 :root {
-  /* Navigation toolbar width 
-   * Max width is applied when url bar is expanded
-   */
+  /* Navigation toolbar width */
+  /* Max width is applied when url bar is expanded */
   --navbarWidth: max(35vw, 500px);
   --navbarMaxWidth: max(60vw, 800px);
 
@@ -30,33 +29,6 @@
   /* Find bar transition length */
   --findbarTransitionLength: 20px;
 }
-
-
-
-/*  ,----.   ,--.    ,-----. ,-----.    ,---.  ,--.    ,---.   
- * '  .-./   |  |   '  .-.  '|  |) /_  /  O  \ |  |   '   .-'  
- * |  | .---.|  |   |  | |  ||  .-.  \|  .-.  ||  |   `.  `-.  
- * '  '--'  ||  '--.'  '-'  '|  '--' /|  | |  ||  '--..-'    | 
- *  `------' `-----' `-----' `------' `--' `--'`-----'`-----'  
- */
-
-:root {
-  /* hide panel borders */
-  --arrowpanel-border-color: transparent !important;
-
-  /* hide focus borders */
-  --toolbar-field-focus-border-color: transparent !important;
-}
-
-/* hide context menu border */
-.menupopup-arrowscrollbox {
-  border: none !important;
-}
-
-/* hide all other borders */
-/* #navigator-toolbox, #navigator-toolbox * {
-  border: none !important;
-} */
 
 
 
@@ -111,6 +83,24 @@
     border-top-left-radius: var(--tab-border-radius) !important;
     border-top-right-radius: var(--tab-border-radius) !important;
   }
+}
+
+:root {
+  /* hide panel borders */
+  --arrowpanel-border-color: transparent !important;
+
+  /* hide focus borders */
+  --toolbar-field-focus-border-color: transparent !important;
+}
+
+/* hide navigator toolbox border */
+#navigator-toolbox {
+  border: none !important;
+}
+
+/* hide context menu border */
+.menupopup-arrowscrollbox {
+  border: none !important;
 }
 
 /* remove notifications toolbar */

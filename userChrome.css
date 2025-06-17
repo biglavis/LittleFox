@@ -344,8 +344,8 @@
  */
 
 :root {
-  --padEnd: round(up, calc((var(--showHighlightAll) + var(--showMatchCase) + var(--showMatchDiacritics) + var(--showWholeWords)) / 4));
-  --optionsWidth: calc(34px*var(--showHighlightAll) + 34px*var(--showMatchCase) + 34px*var(--showMatchDiacritics) + 34px*var(--showWholeWords) + 4px*var(--padEnd));
+  --showMargin: round(up, calc((var(--showHighlightAll) + var(--showMatchCase) + var(--showMatchDiacritics) + var(--showWholeWords)) / 4));
+  --optionsWidth: calc(34px*var(--showHighlightAll) + 34px*var(--showMatchCase) + 34px*var(--showMatchDiacritics) + 34px*var(--showWholeWords) + 4px*var(--showMargin));
 
   --findbarMinWidth: calc(450px - 2 * var(--findbarRight)); /* minimum browser width = 450px */
   --findbarMaxWidth: calc(100vw - 2 * var(--findbarRight));
@@ -489,5 +489,5 @@ label.found-matches {
 
 /* format close button */
 .findbar-closebutton {
-  margin-left: calc(4px * var(--padEnd)) !important;
+  margin-left: calc(4px * var(--showMargin)) !important;
 }

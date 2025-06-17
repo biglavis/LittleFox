@@ -6,6 +6,11 @@
  */
 
 :root {
+  /* show/hide reload button */
+  /* set to 0px to hide */
+  /* set to auto to show */
+  --reloadButtonWidth: auto !important;
+
   /* Navigation toolbar width */
   /* Max width is applied when url bar is expanded */
   --navbarWidth: max(35vw, 500px);
@@ -82,6 +87,7 @@
   #nav-bar {
     border-top-left-radius: var(--tab-border-radius) !important;
     border-top-right-radius: var(--tab-border-radius) !important;
+    background: none !important;
   }
 }
 
@@ -123,47 +129,26 @@
  */
 
 /* hamburger menu */
-@media (min-width: 1200px) {
-  #PanelUI-button {
-    order: -2 !important;
-  }
-  #PanelUI-menu-button {
-    padding-inline-start: var(--toolbar-start-end-padding) !important;
-    padding-inline-end: var(--toolbarbutton-outer-padding) !important;
-  }
+#PanelUI-button {
+  order: -2 !important;
 }
-@media (max-width: 1200px) {
-  #PanelUI-button {
-    order: 99 !important;
-  }
-  #PanelUI-menu-button {
-    padding-inline-start: var(--toolbarbutton-outer-padding) !important;
-    padding-inline-end: var(--toolbar-start-end-padding) !important;
-  }
+#PanelUI-menu-button {
+  padding-inline-start: var(--toolbar-start-end-padding) !important;
+  padding-inline-end: var(--toolbarbutton-outer-padding) !important;
 }
 
 /* dynamic extensions button */
-@media (min-width: 1200px) {
-  #unified-extensions-button {
-    order: -1 !important;
-    justify-content: flex-start !important;
-  }
-}
-@media (max-width: 1200px) {
-  #unified-extensions-button {
-    order: 88 !important;
-    justify-content: flex-end !important;
-  }
-}
 #unified-extensions-button {
-  box-sizing: content-box !important;
+  order: -1 !important;
   width: 0px !important;
   padding: 0px !important;
+  box-sizing: content-box !important;
+  justify-content: flex-start !important;
   overflow: hidden !important;
   transition: width 100ms ease-out, padding 100ms ease-out;
 }
 
-/* show when hamburger menu is hovered */
+/* show extensions button when hamburger menu is hovered */
 #nav-bar:has(#PanelUI-menu-button:not([open]):hover) #unified-extensions-button {
   width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
   padding: 0px var(--toolbarbutton-outer-padding) !important;
@@ -177,8 +162,8 @@
 
 /* dynamic forward/back button */
 #forward-button, #back-button {
-  box-sizing: content-box !important;
   width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
+  box-sizing: content-box !important;
   overflow: hidden !important;
   justify-content: flex-start !important;
   transition: width 100ms ease-out, padding 100ms ease-out;
@@ -188,12 +173,23 @@
   padding: 0px !important;
 }
 
-/* fix stop/reload button padding */
+/* show/hide reload button */
 #stop-reload-button {
-  padding: 0px var(--toolbarbutton-outer-padding) !important;
+  width: var(--reloadButtonWidth) !important;
+  overflow: hidden !important;
+}
+
+/* fix reload button padding */
+#stop-reload-button {
+  padding: 0px calc(var(--toolbarbutton-outer-padding)) !important;
 }
 #stop-reload-button > * {
   padding: 0px !important;
+}
+
+/* remove margins from extension buttons*/
+.toolbaritem-combined-buttons {
+  margin-inline: 0px !important;
 }
 
 /* override default first item padding */
@@ -201,16 +197,14 @@
   padding-inline-start: var(--toolbarbutton-outer-padding) !important;
 }
 
-/* pad first visible item */
+/* pad last visible item */
 @media (max-width: 1200px) {
-  #nav-bar-customization-target > :nth-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)) {
-    padding-inline-start: var(--toolbar-start-end-padding) !important;
+  #nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container) {
+    padding-inline-end: var(--toolbar-start-end-padding) !important;
   }
-}
-
-/* remove margins from extension buttons*/
-.toolbaritem-combined-buttons {
-  margin-inline: 0px !important;
+  #nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#urlbar-container) {
+    margin-inline-end: var(--toolbar-start-end-padding) !important;
+  }
 }
 
 
@@ -227,11 +221,8 @@
   flex: 1 !important
 }
 
-/* hide url bar background */
-@media (min-width: 1200px) {
-  #urlbar:not(:hover, [focused]) #urlbar-background {
-    background: none !important;
-  }
+#urlbar:not(:hover, [focused]) #urlbar-background {
+  background: none !important;
 }
 
 /* pad url bar text */
@@ -259,8 +250,10 @@
  */
 
 /* pad left if last nav bar element isn't url bar */
-#navigator-toolbox:has(#urlbar-container ~:not(#unified-extensions-button)) #TabsToolbar {
-  margin-left: calc(var(--urlbar-margin-inline) - var(--tab-overflow-clip-margin)) !important;
+@media (min-width: 1200px) {
+  #navigator-toolbox:has(#urlbar-container ~:not(#unified-extensions-button)) #TabsToolbar {
+    margin-left: calc(var(--urlbar-margin-inline) - var(--tab-overflow-clip-margin)) !important;
+  }
 }
 
 /* remove gap after pinned tabs */

@@ -68,7 +68,6 @@
   #nav-bar {
     order: 1;
     width: var(--navbarWidth) !important;
-    background: none !important;
   }
   #nav-bar:has(#urlbar[open]) {
     width: var(--navbarMaxWidth) !important;
@@ -85,17 +84,6 @@
   #PersonalToolbar {
     order: 3;
     width: 100% !important;
-    border-top-left-radius: var(--tab-border-radius) !important;
-    border-top-right-radius: var(--tab-border-radius) !important;
-  }
-}
-
-/* COLLAPSED VIEW */
-@media (max-width: 1200px) {
-  #nav-bar {
-    border-top-left-radius: var(--tab-border-radius) !important;
-    border-top-right-radius: var(--tab-border-radius) !important;
-    background: none !important;
   }
 }
 
@@ -135,6 +123,11 @@
  * |  | `   ||  | |  | \   /         |  '--' /|  | |  ||  |\  \  
  * `--'  `--'`--' `--'  `-'          `------' `--' `--'`--' '--' 
  */
+
+/* hide nav bar background */
+#nav-bar {
+  background: none !important;
+}
 
 /* hamburger menu */
 #PanelUI-button {
@@ -299,6 +292,12 @@
  *    `--'    `-----'  `-----' `-----'`------' `--' `--'`--' '--' 
  */
 
+/* rounded toolbar corners */
+#PersonalToolbar {
+  border-top-left-radius: var(--tab-border-radius) !important;
+  border-top-right-radius: var(--tab-border-radius) !important;
+}
+
 /* toolbar button margins */ 
 #PersonalToolbar toolbarbutton {
   margin-top: 4px !important;
@@ -367,7 +366,7 @@ findbar {
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* findbar transiton */
+/* find bar transiton */
 findbar {
   height: 40px !important;
   overflow-y: hidden !important;

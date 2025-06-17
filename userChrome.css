@@ -7,9 +7,9 @@
 
 :root {
   /* show/hide reload button */
-  /* set to 0px to hide */
-  /* set to auto to show */
-  --reloadButtonWidth: auto !important;
+  /* show: flex */
+  /* hide: none */
+  --reloadDisplay: none !important;
 
   /* Navigation toolbar width */
   /* Max width is applied when url bar is expanded */
@@ -47,9 +47,9 @@
 /* EXPANDED VIEW */
 @media (min-width: 1200px) {
   #navigator-toolbox {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: row !important;
   }
 
   #toolbar-menubar {
@@ -59,11 +59,11 @@
 
   #nav-bar {
     order: 1;
-    width: var(--navbarWidth);
+    width: var(--navbarWidth) !important;
     background: none !important;
   }
   #nav-bar:has(#urlbar[open]) {
-    width: var(--navbarMaxWidth);
+    width: var(--navbarMaxWidth) !important;
   }
 
   #TabsToolbar {
@@ -75,8 +75,8 @@
   }
 
   #PersonalToolbar {
+    order: 3;
     width: 100% !important;
-    order: 3 !important;
     border-top-left-radius: var(--tab-border-radius) !important;
     border-top-right-radius: var(--tab-border-radius) !important;
   }
@@ -145,7 +145,7 @@
   box-sizing: content-box !important;
   justify-content: flex-start !important;
   overflow: hidden !important;
-  transition: width 100ms ease-out, padding 100ms ease-out;
+  transition: width 100ms ease-out, padding 100ms ease-out !important;
 }
 
 /* show extensions button when hamburger menu is hovered */
@@ -166,7 +166,7 @@
   box-sizing: content-box !important;
   overflow: hidden !important;
   justify-content: flex-start !important;
-  transition: width 100ms ease-out, padding 100ms ease-out;
+  transition: width 100ms ease-out, padding 100ms ease-out !important;
 }
 #forward-button[disabled], #back-button[disabled] {
   width: 0px !important;
@@ -175,8 +175,7 @@
 
 /* show/hide reload button */
 #stop-reload-button {
-  width: var(--reloadButtonWidth) !important;
-  overflow: hidden !important;
+  display: var(--reloadDisplay) !important;
 }
 
 /* fix reload button padding */
@@ -193,7 +192,7 @@
 }
 
 /* override default first item padding */
-#nav-bar-customization-target > :is(toolbarbutton, toolbaritem):not(#urlbar-container):first-child {
+#nav-bar-customization-target > :is(toolbarbutton, toolbaritem):not([disabled], #urlbar-container):first-child {
   padding-inline-start: var(--toolbarbutton-outer-padding) !important;
 }
 
@@ -297,11 +296,6 @@
   margin-top: 4px !important;
   margin-bottom: 4px !important;
 }
-@media (max-width: 1200px) {
-  #PersonalToolbar toolbarbutton {
-    margin-top: 0px !important;
-  }
-}
 
 /* make bookmark button padding uniform */ 
 #PlacesToolbarItems toolbarbutton {
@@ -349,11 +343,11 @@
 
 /* floating find bar */
 findbar {
-  position: absolute;
-  top: var(--findbarTop);
-  left: var(--findbarRight);
-  right: var(--findbarRight);
-  width: var(--findbarWidth);
+  position: absolute !important;
+  top: var(--findbarTop) !important;
+  left: var(--findbarRight) !important;
+  right: var(--findbarRight) !important;
+  width: var(--findbarWidth) !important;
   min-width: var(--findbarMinWidth) !important;
   max-width: var(--findbarMaxWidth) !important;
   margin-left: auto !important;

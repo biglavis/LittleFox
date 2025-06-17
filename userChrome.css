@@ -292,11 +292,6 @@
   max-width: var(--inactive-tab-width) !important;
 }
 
-/* always show post-tabs title bar spacer */
-#TabsToolbar > .titlebar-spacer[type="post-tabs"] {
-  display: flex !important;
-}
-
 
 
 /* ,--------. ,-----.  ,-----. ,--.   ,-----.    ,---.  ,------.  

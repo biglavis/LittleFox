@@ -9,7 +9,7 @@
   /* Show/hide reload button */
   /* show: flex */
   /* hide: none */
-  --showReload: flex !important;
+  --showReload: none !important;
 
   /* Navigation toolbar width */
   /* max width is applied when url bar is expanded */

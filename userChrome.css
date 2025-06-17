@@ -6,41 +6,51 @@
  */
 
 :root {
-  /* Show/hide reload button */
-  /* show: flex */
-  /* hide: none */
-  --showReload: none !important;
+  /* Show/hide reload button
+   * show: flex
+   * hide: none
+   */
+  --show-reload: none !important;
 
-  /* Navigation toolbar width */
-  /* max width is applied when url bar is expanded */
-  --navbarWidth: max(35vw, 500px);
-  --navbarMaxWidth: max(60vw, 800px);
+  /* Navigation toolbar width
+   * max width is applied when url bar is expanded
+   */
+  --navbar-width: max(35vw, 500px);
+  --navbar-max-width: max(60vw, 800px);
 
   /* Dynamic tab width */
-  --activeTabWidth: clamp(100px, 24vw, 240px);    
-  --inactiveTabWidth: clamp(100px, 18vw, 180px);
+  --active-tab-width: clamp(100px, 24vw, 240px);    
+  --inactive-tab-width: clamp(100px, 18vw, 180px);
 
-  /* Preferred find bar width */
-  /* set to 0px for minimum width */
-  --findbarLength: calc(var(--findbarMinWidthExpanded) + (100vw - var(--findbarMinWidthExpanded)) * 0.1);
+  /* Preferred find bar width
+   * set to 0px for minimum width
+   */
+  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - var(--findbar-min-width-expanded)) * 0.1);
 
   /* Find bar distance from window corners */
-  --findbarTop: 12px;
-  --findbarRight: max(2vw, 30px); /* scrollbar is 18px */
+  --findbar-top: 12px;
+  --findbar-right: max(2vw, 30px); /* scrollbar is 18px */
 
   /* Find bar transition duration */
-  --findbarTransitionDuration: 100ms;
+  --findbar-transition-duration: 100ms;
 
   /* Find bar transition length */
-  --findbarTransitionLength: 20px;
+  --findbar-transition-length: 20px;
 
-  /* Show/hide find bar options */
-  /* show: 1 */
-  /* hide: 0 */
-  --showHighlightAll:    1;
-  --showMatchCase:       1;
-  --showMatchDiacritics: 0;
-  --showWholeWords:      1;
+  /* Show/hide find bar options
+   * show: 1
+   * hide: 0
+   */
+  --show-highlight-all:    1;
+  --show-match-case:       1;
+  --show-match-diacritics: 1;
+  --show-whole-words:      1;
+
+  /* Find bar options position */
+  --highlight-all-position:    0;
+  --match-case-position:       1;
+  --match-diacritics-position: 2;
+  --whole-words-position:      3;
 }
 
 
@@ -52,7 +62,6 @@
  * `-----'`--' `--'  `--'   `-----'  `-----'    `--'    
  */
 
-/* EXPANDED VIEW */
 @media (min-width: 1200px) {
   #navigator-toolbox {
     display: flex !important;
@@ -67,10 +76,10 @@
 
   #nav-bar {
     order: 1;
-    width: var(--navbarWidth) !important;
+    width: var(--navbar-width) !important;
   }
   #nav-bar:has(#urlbar[open]) {
-    width: var(--navbarMaxWidth) !important;
+    width: var(--navbar-max-width) !important;
   }
 
   #TabsToolbar {
@@ -78,7 +87,7 @@
     width: auto !important;
   }
   #navigator-toolbox:has(#urlbar[open]) #TabsToolbar {
-    margin-left: calc(var(--navbarWidth) - var(--navbarMaxWidth)) !important;
+    margin-left: calc(var(--navbar-width) - var(--navbar-max-width)) !important;
   }
 
   #PersonalToolbar {
@@ -176,7 +185,7 @@
 
 /* show/hide reload button */
 #stop-reload-button {
-  display: var(--showReload) !important;
+  display: var(--show-reload) !important;
 }
 
 /* fix reload button padding */
@@ -277,10 +286,10 @@
 
 /* dynamic tab width */
 .tabbrowser-tab[selected]:not([pinned]) {
-  max-width: var(--activeTabWidth) !important;
+  max-width: var(--active-tab-width) !important;
 }
 .tabbrowser-tab[fadein]:not([selected], [pinned]) {
-  max-width: var(--inactiveTabWidth) !important;
+  max-width: var(--inactive-tab-width) !important;
 }
 
 /* always show post-tabs title bar spacer */
@@ -344,27 +353,27 @@
  */
 
 :root {
-  --showMargin: round(up, calc((var(--showHighlightAll) + var(--showMatchCase) + var(--showMatchDiacritics) + var(--showWholeWords)) / 4));
-  --optionsWidth: calc(34px*var(--showHighlightAll) + 34px*var(--showMatchCase) + 34px*var(--showMatchDiacritics) + 34px*var(--showWholeWords) + 4px*var(--showMargin));
+  --show-margin: round(up, calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words)) / 4));
+  --options-width: calc(34px*var(--show-highlight-all) + 34px*var(--show-match-case) + 34px*var(--show-match-diacritics) + 34px*var(--show-whole-words) + 4px*var(--show-margin));
 
-  --findbarMinWidth: calc(450px - 2 * var(--findbarRight)); /* minimum browser width = 450px */
-  --findbarMaxWidth: calc(100vw - 2 * var(--findbarRight));
-  --textboxMinWidth: calc(var(--findbarMinWidth) - 116px);
-  --findbarMinWidthExpanded: calc(var(--textboxMinWidth) + 116px + var(--optionsWidth));
+  --findbar-min-width: calc(450px - 2 * var(--findbar-right)); /* minimum browser width = 450px */
+  --findbar-max-width: calc(100vw - 2 * var(--findbar-right));
+  --textbox-min-width: calc(var(--findbar-min-width) - 116px);
+  --findbar-min-width-expanded: calc(var(--textbox-min-width) + 116px + var(--options-width));
 
-  --findbarWidth: max(var(--findbarLength), var(--findbarMinWidthExpanded));
-  --textboxWidth: calc(var(--findbarWidth) - 116px - var(--optionsWidth));
+  --findbar-width-use: max(var(--findbar-width), var(--findbar-min-width-expanded));
+  --textbox-width: calc(var(--findbar-width-use) - 116px - var(--options-width));
 }
 
 /* floating find bar */
 findbar {
   position: absolute !important;
-  top: var(--findbarTop) !important;
-  left: var(--findbarRight) !important;
-  right: var(--findbarRight) !important;
-  width: var(--findbarWidth) !important;
-  min-width: var(--findbarMinWidth) !important;
-  max-width: var(--findbarMaxWidth) !important;
+  top: var(--findbar-top) !important;
+  left: var(--findbar-right) !important;
+  right: var(--findbar-right) !important;
+  width: var(--findbar-width-use) !important;
+  min-width: var(--findbar-min-width) !important;
+  max-width: var(--findbar-max-width) !important;
   margin-left: auto !important;
   border: none !important;
   border-radius: var(--tab-border-radius) !important;
@@ -376,19 +385,19 @@ findbar {
   height: 40px !important;
   overflow-y: hidden !important;
   transition-property: top, height, padding-block, visibility !important;
-  transition-duration: var(--findbarTransitionDuration), var(--findbarTransitionDuration), var(--findbarTransitionDuration), 0s !important;
+  transition-duration: var(--findbar-transition-duration), var(--findbar-transition-duration), var(--findbar-transition-duration), 0s !important;
   transition-timing-function: ease-in-out, ease-in-out, ease-in-out, linear !important;
   transition-delay: 0s, 0s, 0s, 0s !important;
 }
 findbar[hidden="true"] {
-  top: calc(var(--findbarTop) - var(--findbarTransitionLength)) !important;
+  top: calc(var(--findbar-top) - var(--findbar-transition-length)) !important;
   height: 0px !important;
   padding-block: 0px !important;
-  transition-delay: 0s, 0s, 0s, var(--findbarTransitionDuration) !important;
+  transition-delay: 0s, 0s, 0s, var(--findbar-transition-duration) !important;
 }
 findbar > * {
-  transition-duration: calc(var(--findbarTransitionDuration) / 2) !important;
-  transition-delay: calc(var(--findbarTransitionDuration) / 2) !important;
+  transition-duration: calc(var(--findbar-transition-duration) / 2) !important;
+  transition-delay: calc(var(--findbar-transition-duration) / 2) !important;
 }
 findbar[hidden="true"] > * {
   transition-delay: 0s !important;
@@ -401,7 +410,7 @@ hbox[anonid="findbar-textbox-wrapper"], .findbar-textbox {
 
 /* format textbox */
 .findbar-textbox {
-  min-width: var(--textboxMinWidth) !important;
+  min-width: var(--textbox-min-width) !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -416,7 +425,7 @@ hbox[anonid="findbar-textbox-wrapper"], .findbar-textbox {
 /* position found matches label */
 label.found-matches {
   position: absolute !important;
-  right: calc(100% - var(--textboxWidth)) !important;
+  right: calc(100% - var(--textbox-width)) !important;
   text-align: right !important;
   margin: 0px !important;
 }
@@ -438,24 +447,28 @@ label.found-matches {
 
 /* format checkboxes */
 .findbar-highlight {
-  width: calc(30px * var(--showHighlightAll)) !important;
-  height: calc(24px * var(--showHighlightAll)) !important;
-  margin-right: calc(4px * var(--showHighlightAll)) !important;
+  order: var(--highlight-all-position) !important;
+  width: calc(30px * var(--show-highlight-all)) !important;
+  height: calc(24px * var(--show-highlight-all)) !important;
+  margin-right: calc(4px * var(--show-highlight-all)) !important;
 }
 .findbar-case-sensitive {
-  width: calc(30px * var(--showMatchCase)) !important;
-  height: calc(24px * var(--showMatchCase)) !important;
-  margin-right: calc(4px * var(--showMatchCase)) !important;
+  order: var(--match-case-position) !important;
+  width: calc(30px * var(--show-match-case)) !important;
+  height: calc(24px * var(--show-match-case)) !important;
+  margin-right: calc(4px * var(--show-match-case)) !important;
 }
 .findbar-match-diacritics {
-  width: calc(30px * var(--showMatchDiacritics)) !important;
-  height: calc(24px * var(--showMatchDiacritics)) !important;
-  margin-right: calc(4px * var(--showMatchDiacritics)) !important;
+  order: var(--match-diacritics-position) !important;
+  width: calc(30px * var(--show-match-diacritics)) !important;
+  height: calc(24px * var(--show-match-diacritics)) !important;
+  margin-right: calc(4px * var(--show-match-diacritics)) !important;
 }
 .findbar-entire-word {
-  width: calc(30px * var(--showWholeWords)) !important;
-  height: calc(24px * var(--showWholeWords)) !important;
-  margin-right: calc(4px * var(--showWholeWords)) !important;
+  order: var(--whole-words-position) !important;
+  width: calc(30px * var(--show-whole-words)) !important;
+  height: calc(24px * var(--show-whole-words)) !important;
+  margin-right: calc(4px * var(--show-whole-words)) !important;
 }
 .findbar-highlight::after {
   content: "HL";
@@ -489,5 +502,5 @@ label.found-matches {
 
 /* format close button */
 .findbar-closebutton {
-  margin-left: calc(4px * var(--showMargin)) !important;
+  margin-left: calc(4px * var(--show-margin)) !important;
 }

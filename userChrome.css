@@ -105,12 +105,12 @@
   border: none !important;
 }
 
-/* remove notifications toolbar */
+/* hide notifications toolbar */
 #notifications-toolbar {
   display: none !important;
 }
 
-/* remove spacers */
+/* hide spacers */
 .titlebar-spacer {
   display: none !important;
 }
@@ -261,7 +261,7 @@
   margin-inline-start: 0px !important;
 }
 
-/* remove tab shadow & outline */
+/* hide tab shadow & outline */
 .tabbrowser-tab .tab-background {
   box-shadow: none !important;
   outline: none !important;
@@ -281,6 +281,11 @@
 }
 .tabbrowser-tab[fadein]:not([selected], [pinned]) {
   max-width: var(--inactiveTabWidth) !important;
+}
+
+/* always show post-tabs title bar spacer */
+#TabsToolbar > .titlebar-spacer[type="post-tabs"] {
+  display: flex !important;
 }
 
 

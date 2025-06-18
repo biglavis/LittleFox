@@ -31,11 +31,15 @@
   --findbar-top: 12px;
   --findbar-right: max(2vw, 30px); /* scrollbar is 18px */
 
-  /* Find bar transition duration */
+  /* Find bar transition duration
+   * changes the duraction of the find bar open/close transition animation
+   */
   --findbar-transition-duration: 100ms;
 
-  /* Find bar transition length */
-  --findbar-transition-length: 20px;
+  /* Find bar transition distance
+   * changes how far the find bar travels down/up during the open/close transition animation
+   */
+  --findbar-transition-distance: 20px;
 
   /* Show/hide find bar options
    * show: 1
@@ -385,7 +389,7 @@ findbar {
   transition-delay: 0s, 0s, 0s, 0s !important;
 }
 findbar[hidden="true"] {
-  top: calc(var(--findbar-top) - var(--findbar-transition-length)) !important;
+  top: calc(var(--findbar-top) - var(--findbar-transition-distance)) !important;
   height: 0px !important;
   padding-block: 0px !important;
   transition-delay: 0s, 0s, 0s, var(--findbar-transition-duration) !important;

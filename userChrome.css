@@ -10,7 +10,7 @@
    * show: flex
    * hide: none
    */
-  --show-reload: none !important;
+  --show-reload: none;
 
   /* Navigation toolbar width
    * max width is applied when url bar is expanded

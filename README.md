@@ -16,7 +16,7 @@ A minimalistic, mouse centered CSS theme for FireFox, inspired by [Cascade](http
 
 ## Features
 
-LittleFox is designed to be mouse friendly while maintaining a minimalist aesthetic. This theme draws inspiration from [Cascade](https://github.com/cascadefox/cascade), adapting several of its design ideas with tweaks to improve mouse usability, alongside many original features such as:
+LittleFox is designed to be mouse friendly while maintaining a minimalist aesthetic. This theme draws inspiration from [Cascade](https://github.com/cascadefox/cascade), adapting several of its design elements with tweaks to improve mouse usability, while also introducing many original features such as:
 
 **Dynamic UI Buttons**
 

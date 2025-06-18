@@ -212,10 +212,11 @@
 
 /* pad last visible item */
 @media (max-width: 1200px) {
-  #nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container) {
+  /* need to be explicit about hbox else FireFox crashes on dialog box popup for some reason */
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container) {
     padding-inline-end: var(--toolbar-start-end-padding) !important;
   }
-  #nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#urlbar-container) {
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#urlbar-container) {
     margin-inline-end: var(--toolbar-start-end-padding) !important;
   }
 }

@@ -22,7 +22,7 @@ LittleFox is designed to be mouse friendly while maintaining a minimalist aesthe
 
 ![DynamicButtons](/images/DynamicButtons.gif)
 
-**A Highly Customizable, Floating Findbar**
+**Customizable Floating Find Bar**
 
 ![Findbar](/images/Findbar.gif)
 

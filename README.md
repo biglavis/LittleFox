@@ -30,7 +30,7 @@ LittleFox is designed to be mouse friendly while maintaining a minimalist aesthe
 
 ## Customization
 
-Several UI elements can be customized by changing the variable values at the top of **`userChrome.css`**.
+Several UI elements can be customized by changing the variable values at the top of [**`userChrome.css`**](https://github.com/biglavis/LittleFox/blob/main/userChrome.css).
 
 ```css
 /*  ,-----. ,-----. ,--.  ,--.,------.,--. ,----.    

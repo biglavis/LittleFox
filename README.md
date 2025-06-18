@@ -1,12 +1,8 @@
-<div align="center">
+![Preview](/images/LittleFox.png)
 
 # LittleFox
 
-**A minimalistic, mouse centered CSS theme for FireFox, inspired by [Cascade](https://github.com/cascadefox/cascade).**
-
-![Preview](/images/LittleFox.png)
-
-</div>
+A minimalistic, mouse centered CSS theme for FireFox, inspired by [Cascade](https://github.com/cascadefox/cascade).
 
 ## Installation
 

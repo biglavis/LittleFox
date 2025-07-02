@@ -263,14 +263,26 @@
  *    `--'  `--' `--'`------' `-----'  
  */
 
-/* add margin left of tabs if last nav bar element isn't url bar */
+/* always positions tabs first */
+#tabbrowser-tabs {
+  order: -1 !important;
+}
+
+/* hide default border, padding, and margin left of tabs when first tabs toolbar element isn't tabs */
+#tabbrowser-tabs {
+  border-inline-start: none !important;
+  padding-inline-start: 0px !important;
+  margin-inline-start: 0px !important;
+}
+
+/* add margin left of tabs toolbar if last nav bar element isn't url bar*/
 @media (min-width: 1200px) {
   #navigator-toolbox:has(#urlbar-container ~:not(#unified-extensions-button)) #TabsToolbar {
     margin-left: calc(var(--urlbar-margin-inline) - var(--tab-overflow-clip-margin)) !important;
   }
 }
 
-/* add margin right of tabs so there is always a draggable area */
+/* add margin right of tabs so that there is always a draggable area */
 #tabbrowser-tabs:not(:has(+ #new-tab-button)),
 #TabsToolbar-customization-target:has(#tabbrowser-tabs + #new-tab-button) :is(#new-tab-button, #tabs-newtab-button) {
   margin-right: 40px !important;

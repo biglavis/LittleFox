@@ -244,8 +244,8 @@
   padding-left: var(--urlbar-icon-padding) !important;
 }
 
-/* hide site information and "shield" button */
-#urlbar:not([focused]) :is(#identity-box, #tracking-protection-icon-container) {
+/* hide identity box and "shield" buttons */
+#urlbar:not([focused]):not(:has(:is(#tracking-protection-icon-container, #identity-box > *):is(:hover, [open]))) :is(#tracking-protection-icon-container, #identity-box) {
   display: none !important
 }
 

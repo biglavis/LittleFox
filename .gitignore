@@ -5,3 +5,5 @@
 !.gitignore
 !README.md
 !userChrome.css
+!assets
+!assets/*

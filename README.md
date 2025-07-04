@@ -1,8 +1,12 @@
-![Preview](/images/LittleFox.png)
+<div align="center">
 
 # LittleFox
 
 A minimalistic, mouse centered CSS theme for FireFox, inspired by [Cascade](https://github.com/cascadefox/cascade).
+
+![Preview](/assets/head.webp)
+
+</div>
 
 ## Installation
 
@@ -20,11 +24,11 @@ LittleFox is designed to be mouse friendly while maintaining a minimalist aesthe
 
 **Dynamic UI Buttons**
 
-![DynamicButtons](/images/DynamicButtons.gif)
+![DynamicButtons](/assets/DynamicButtons.gif)
 
 **Customizable Floating Find Bar**
 
-![Findbar](/images/Findbar.gif)
+![Findbar](/assets/Findbar.gif)
 
 **... and more!**
 

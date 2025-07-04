@@ -25,7 +25,7 @@
   /* Preferred find bar width
    * set to 0px for minimum width
    */
-  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - var(--findbar-min-width-expanded)) * 0.1);
+  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
 
   /* Find bar distance from window corners */
   --findbar-top: 12px;
@@ -375,11 +375,11 @@
   --options-width: calc(34px*var(--show-highlight-all) + 34px*var(--show-match-case) + 34px*var(--show-match-diacritics) + 34px*var(--show-whole-words) + 4px*var(--show-margin));
 
   --findbar-min-width: calc(450px - 2 * var(--findbar-right)); /* minimum browser width = 450px */
+  --findbar-min-width-expanded: calc(var(--findbar-min-width) + var(--options-width));
   --findbar-max-width: calc(100vw - 2 * var(--findbar-right));
-  --textbox-min-width: calc(var(--findbar-min-width) - 116px);
-  --findbar-min-width-expanded: calc(var(--textbox-min-width) + 116px + var(--options-width));
+  --findbar-width-use: clamp(var(--findbar-min-width-expanded), var(--findbar-width), var(--findbar-max-width));
 
-  --findbar-width-use: max(var(--findbar-width), var(--findbar-min-width-expanded));
+  --textbox-min-width: calc(var(--findbar-min-width) - 116px);
   --textbox-width: calc(var(--findbar-width-use) - 116px - var(--options-width));
 }
 

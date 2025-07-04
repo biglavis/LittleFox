@@ -64,7 +64,7 @@ Several UI elements can be customized by changing the variable values at the top
   /* Preferred find bar width
    * set to 0px for minimum width
    */
-  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - var(--findbar-min-width-expanded)) * 0.1);
+  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
 
   /* Find bar distance from window corners */
   --findbar-top: 12px;

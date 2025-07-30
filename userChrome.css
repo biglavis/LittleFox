@@ -390,7 +390,6 @@ findbar {
   left: var(--findbar-right) !important;
   right: var(--findbar-right) !important;
   width: var(--findbar-width-use) !important;
-  min-width: var(--findbar-min-width) !important;
   max-width: var(--findbar-max-width) !important;
   margin-left: auto !important;
   border: none !important;
@@ -421,13 +420,9 @@ findbar[hidden="true"] > * {
   transition-delay: 0s !important;
 }
 
-/* allow textbox to grow */
-hbox[anonid="findbar-textbox-wrapper"], .findbar-textbox {
-  flex: 1 !important;
-}
-
 /* format textbox */
 .findbar-textbox {
+  width: var(--textbox-width) !important;
   min-width: var(--textbox-min-width) !important;
   border: none !important;
   outline: none !important;

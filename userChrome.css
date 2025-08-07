@@ -352,6 +352,13 @@
   padding: var(--bookmark-block-padding) !important;
 }
 
+/* match chevron button size to bookmark button size */
+#PlacesChevron .toolbarbutton-icon {
+  width: calc(2 * var(--bookmark-block-padding) + 16px) !important;
+  height: calc(2 * var(--bookmark-block-padding) + 16px) !important;
+  padding: var(--bookmark-block-padding) !important;
+}
+
 
 
 /* ,------.,--.,--.  ,--.,------.         ,-----.    ,---.  ,------.  

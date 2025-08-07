@@ -192,32 +192,41 @@
   display: var(--show-reload) !important;
 }
 
-/* fix reload button padding */
-#stop-reload-button {
-  padding: 0px calc(var(--toolbarbutton-outer-padding)) !important;
-}
-#stop-reload-button > * {
-  padding: 0px !important;
-}
-
 /* remove margins from extension buttons*/
 .toolbaritem-combined-buttons {
   margin-inline: 0px !important;
 }
 
 /* override default first item padding */
-#nav-bar-customization-target > :is(toolbarbutton, toolbaritem):not([disabled], #urlbar-container):first-child {
+#nav-bar-customization-target > :is(toolbarbutton):not([disabled], #unified-extensions-button):first-child {
   padding-inline-start: var(--toolbarbutton-outer-padding) !important;
 }
+#nav-bar-customization-target > :is(toolbaritem):not([disabled], #unified-extensions-button):first-child {
+  padding-inline-start: 0px !important;
+}
 
-/* pad last visible item */
+/* pad last visible item before tabs (large window) */
+@media (min-width: 1200px) {
+  /* need to be explicit about hbox else FireFox crashes on dialog box popup for some reason */
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#stop-reload-button, .unified-extensions-item) {
+    padding-inline-end: calc(var(--urlbar-margin-inline) - var(--toolbarbutton-outer-padding)) !important;
+  }
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container, #stop-reload-button, .unified-extensions-item) {
+    padding-inline-end: var(--urlbar-margin-inline) !important;
+  }
+}
+
+/* pad last visible item (small window) */
 @media (max-width: 1200px) {
   /* need to be explicit about hbox else FireFox crashes on dialog box popup for some reason */
-  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container) {
-    padding-inline-end: var(--toolbar-start-end-padding) !important;
-  }
   hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#urlbar-container) {
     margin-inline-end: var(--toolbar-start-end-padding) !important;
+  }
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#stop-reload-button, .unified-extensions-item) {
+    padding-inline-end: calc(var(--toolbar-start-end-padding) - var(--toolbarbutton-outer-padding)) !important;
+  }
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container, #stop-reload-button, .unified-extensions-item) {
+    padding-inline-end: var(--toolbar-start-end-padding) !important;
   }
 }
 
@@ -230,11 +239,12 @@
  *  `-----' `--' '--'`-----'    `------' `--' `--'`--' '--' 
  */
 
-/* make url bar grow/shrink correctly in responce to dynamics buttons */
+/* has a fixed sized for some reason; make it auto */
 #urlbar-container {
-  flex: 1 !important
+  width: auto !important
 }
 
+/* show background on hover/focus */
 #urlbar:not(:hover, [focused]) #urlbar-background {
   background: none !important;
 }
@@ -250,7 +260,7 @@
 }
 
 /* hide all page action buttons except zoom */
-#urlbar:not(:hover, [focused]) #page-action-buttons > *:not([open], #urlbar-zoom-button) {
+#urlbar:not(:hover, [focused]) #page-action-buttons > :not([open], #urlbar-zoom-button) {
   display: none !important
 }
 
@@ -275,10 +285,11 @@
   margin-inline-start: 0px !important;
 }
 
-/* add margin left of tabs toolbar if last nav bar element isn't url bar*/
-@media (min-width: 1200px) {
-  #navigator-toolbox:has(#urlbar-container ~:not(#unified-extensions-button)) #TabsToolbar {
-    margin-left: calc(var(--urlbar-margin-inline) - var(--tab-overflow-clip-margin)) !important;
+/* add padding left of first tab (small window) */
+@media (max-width: 1200px) {
+  #pinned-tabs-container > .tabbrowser-tab:first-child,
+  #tabbrowser-tabs:not(:has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox > .tabbrowser-tab:first-child {
+    padding-inline-start: var(--tab-block-margin) !important;
   }
 }
 
@@ -289,8 +300,8 @@
 }
 
 /* remove gap after pinned tabs */
-#tabbrowser-tabs[haspinnedtabs] .tabbrowser-tab:nth-child(1 of :not([pinned])) {
-  margin-inline-start: 0px !important;
+#pinned-tabs-container {
+  margin-inline-end: 0px !important;
 }
 
 /* hide tab shadow & outline */
@@ -341,16 +352,8 @@
   padding: var(--bookmark-block-padding) !important;
 }
 
-/* match chevron button size to bookmark button size */
-#PlacesChevron .toolbarbutton-icon {
-  width: calc(2 * var(--bookmark-block-padding) + 16px) !important;
-  height: calc(2 * var(--bookmark-block-padding) + 16px) !important;
-  padding: var(--bookmark-block-padding) !important;
-}
 
 
-
-                                                            
 /* ,------.,--.,--.  ,--.,------.         ,-----.    ,---.  ,------.  
  * |  .---'|  ||  ,'.|  ||  .-.  \ ,-----.|  |) /_  /  O  \ |  .--. ' 
  * |  `--, |  ||  |' '  ||  |  \  :'-----'|  .-.  \|  .-.  ||  '--'.' 

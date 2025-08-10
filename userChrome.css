@@ -288,7 +288,7 @@
 /* add padding left of first tab (small window) */
 @media (max-width: 1200px) {
   #pinned-tabs-container > .tabbrowser-tab:first-child,
-  #tabbrowser-tabs:not(:has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox > .tabbrowser-tab:first-child {
+  #tabbrowser-tabs:not([overflow], :has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox > .tabbrowser-tab:first-child {
     padding-inline-start: var(--tab-block-margin) !important;
   }
 }

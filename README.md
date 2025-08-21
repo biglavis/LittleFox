@@ -71,7 +71,7 @@ Several UI elements can be customized by changing the variable values at the top
   --findbar-right: max(2vw, 30px); /* scrollbar is 18px */
 
   /* Find bar transition duration
-   * changes the duraction of the find bar open/close transition animation
+   * changes the duration of the find bar open/close transition animation
    */
   --findbar-transition-duration: 100ms;
 

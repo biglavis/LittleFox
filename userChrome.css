@@ -32,7 +32,7 @@
   --findbar-right: max(2vw, 30px); /* scrollbar is 18px */
 
   /* Find bar transition duration
-   * changes the duraction of the find bar open/close transition animation
+   * changes the duration of the find bar open/close transition animation
    */
   --findbar-transition-duration: 100ms;
 
@@ -493,24 +493,36 @@ label.found-matches {
   height: calc(24px * var(--show-whole-words)) !important;
   margin-right: calc(4px * var(--show-whole-words)) !important;
 }
-.findbar-highlight::after {
-  content: "HL";
+.findbar-highlight::before {
+  content: "[ab]";
   font-weight: bold;
+  color: var(--toolbar-color);
 }
-.findbar-case-sensitive::after {
+.findbar-case-sensitive::before {
   content: "Aa";
   font-weight: bold;
   color: var(--toolbar-color);
 }
-.findbar-match-diacritics::after {
+.findbar-match-diacritics::before {
   content: "àë";
   font-weight: bold;
+  color: var(--toolbar-color);
 }
-.findbar-entire-word::after {
+.findbar-entire-word::before {
+  position: fixed;
   content: "ab";
   font-weight: bold;
-  text-decoration: underline;
   color: var(--toolbar-color);
+}
+.findbar-entire-word::after {
+  position: fixed;
+  width: 1.3em;
+  height: 0.2em;
+  margin-bottom: -1em;
+  content: "";
+  border-left: 2px solid var(--toolbar-color);
+  border-right: 2px solid var(--toolbar-color);
+  border-bottom: 1px solid var(--toolbar-color);
 }
 
 /* checkbox hover/active background */

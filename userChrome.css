@@ -535,6 +535,11 @@ label.found-matches {
   border-radius: 4px !important;
 }
 
+/* clip fixed pseudo-elements to hide overflow */
+.findbar-container {
+  clip-path: inset(0) !important;
+}
+
 /* format close button */
 .findbar-closebutton {
   margin-left: calc(4px * var(--show-margin)) !important;

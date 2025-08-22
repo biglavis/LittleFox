@@ -460,8 +460,9 @@ label.found-matches {
 
 /* simplify checkboxes */
 .findbar-container > checkbox {
+  display: grid !important;
+  justify-items: center !important;
   margin-left: 0px !important;
-  justify-content: center !important;
   overflow: hidden !important;
 }
 .findbar-container > checkbox *{
@@ -509,13 +510,13 @@ label.found-matches {
   color: var(--toolbar-color);
 }
 .findbar-entire-word::before {
-  position: fixed;
   content: "ab";
   font-weight: bold;
   color: var(--toolbar-color);
+  grid-row: 1;
+  grid-column: 1;
 }
 .findbar-entire-word::after {
-  position: fixed;
   width: 1.3em;
   height: 0.2em;
   margin-bottom: -1em;
@@ -523,6 +524,8 @@ label.found-matches {
   border-left: 2px solid var(--toolbar-color);
   border-right: 2px solid var(--toolbar-color);
   border-bottom: 1px solid var(--toolbar-color);
+  grid-row: 1;
+  grid-column: 1;
 }
 
 /* checkbox hover/active background */
@@ -533,11 +536,6 @@ label.found-matches {
 .findbar-container > checkbox[checked] {
   background-color: var(--toolbarbutton-active-background) !important;
   border-radius: 4px !important;
-}
-
-/* clip fixed pseudo-elements to hide overflow */
-.findbar-container {
-  clip-path: inset(0) !important;
 }
 
 /* format close button */

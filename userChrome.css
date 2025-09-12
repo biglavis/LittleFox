@@ -278,7 +278,7 @@
   order: -1 !important;
 }
 
-/* hide default border, padding, and margin left of tabs when first tabs toolbar element isn't tabs */
+/* hide default border, padding, and margin left of tabs */
 #tabbrowser-tabs {
   border-inline-start: none !important;
   padding-inline-start: 0px !important;
@@ -287,9 +287,10 @@
 
 /* add padding left of first tab (small window) */
 @media (max-width: 1200px) {
-  #pinned-tabs-container > .tabbrowser-tab:first-child,
-  #tabbrowser-tabs:not([overflow], :has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox > .tabbrowser-tab:first-child {
-    padding-inline-start: var(--tab-block-margin) !important;
+  #pinned-tabs-container, #tabbrowser-tabs:not([overflow], :has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox {
+    & > .tabbrowser-tab:first-child, & > tab-group:first-child > .tab-group-label-container {
+      padding-inline-start: calc(2 * var(--tab-overflow-clip-margin)) !important;
+    }
   }
 }
 
@@ -302,6 +303,22 @@
 /* remove gap after pinned tabs */
 #pinned-tabs-container {
   margin-inline-end: 0px !important;
+}
+
+/* normalize tab group padding */
+.tab-group-label-container {
+  margin-inline-start: 0px !important;
+  padding-inline: var(--tab-overflow-clip-margin) !important;
+  box-sizing: content-box !important;
+}
+.tab-group-overflow-count-container {
+  margin-inline-end: 0px !important;
+  padding-inline-end: var(--tab-overflow-clip-margin) !important;
+}
+
+/* hide tab group label outline */
+.tab-group-label {
+  outline: none !important;
 }
 
 /* hide tab shadow & outline */
@@ -322,7 +339,7 @@
 .tabbrowser-tab[selected]:not([pinned]) {
   max-width: var(--active-tab-width) !important;
 }
-.tabbrowser-tab[fadein]:not([selected], [pinned]) {
+:not([collapsed]) > .tabbrowser-tab[fadein]:not([selected], [pinned]) {
   max-width: var(--inactive-tab-width) !important;
 }
 

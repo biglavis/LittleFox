@@ -434,7 +434,7 @@ findbar {
   transition-timing-function: ease-in-out, ease-in-out, ease-in-out, linear !important;
   transition-delay: 0s, 0s, 0s, 0s !important;
 }
-findbar[hidden="true"] {
+findbar[hidden] {
   top: calc(var(--findbar-top) - var(--findbar-transition-distance)) !important;
   height: 0px !important;
   padding-block: 0px !important;
@@ -444,7 +444,7 @@ findbar > * {
   transition-duration: calc(var(--findbar-transition-duration) / 2) !important;
   transition-delay: calc(var(--findbar-transition-duration) / 2) !important;
 }
-findbar[hidden="true"] > * {
+findbar[hidden] > * {
   transition-delay: 0s !important;
 }
 

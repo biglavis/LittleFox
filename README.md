@@ -51,7 +51,7 @@ Several UI elements can be customized by changing the variable values at the top
    */
   --show-reload: none;
 
-  /* Navigation toolbar width
+  /* Navigation bar width
    * max width is applied when url bar is expanded
    */
   --navbar-width: max(35vw, 500px);

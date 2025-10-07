@@ -12,7 +12,7 @@
    */
   --show-reload: none;
 
-  /* Navigation toolbar width
+  /* Navigation bar width
    * max width is applied when url bar is expanded
    */
   --navbar-width: max(35vw, 500px);
@@ -162,16 +162,12 @@
   transition: width 100ms ease-out, padding 100ms ease-out !important;
 }
 
-/* show extensions button when hamburger menu is hovered */
-#nav-bar:has(#PanelUI-menu-button:not([open]):hover) #unified-extensions-button {
-  width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
-  padding: 0px var(--toolbarbutton-outer-padding) !important;
-  transition-delay: 450ms !important;
-}
-/* show on interaction */
+/* show extensions button on interaction or when hamburger menu is hovered */
+#nav-bar:has(#PanelUI-menu-button:not([open]):hover) #unified-extensions-button,
 #unified-extensions-button:is(:hover, [open], :has(.toolbarbutton-icon[showing])) {
   width: calc(2 * var(--toolbarbutton-inner-padding) + 16px) !important;
   padding: 0px var(--toolbarbutton-outer-padding) !important;
+  transition-delay: 450ms !important;
 }
 
 /* dynamic forward/back button */
@@ -198,8 +194,13 @@
 }
 
 /* override default first item padding */
-#nav-bar-customization-target > :is(toolbarbutton):not([disabled], #unified-extensions-button):first-child {
-  padding-inline-start: var(--toolbarbutton-outer-padding) !important;
+#nav-bar-customization-target > :first-child:not([disabled], #unified-extensions-button) {
+  &:is(toolbarbutton) {
+    padding-inline-start: var(--toolbarbutton-outer-padding) !important;
+  }
+  &:is(toolbaritem) {
+    padding-inline-start: 0px !important;
+  }
 }
 #nav-bar-customization-target > :is(toolbaritem):not([disabled], #unified-extensions-button):first-child {
   padding-inline-start: 0px !important;
@@ -208,25 +209,29 @@
 /* pad last visible item before tabs (large window) */
 @media (min-width: 1200px) {
   /* need to be explicit about hbox else FireFox crashes on dialog box popup for some reason */
-  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#stop-reload-button, .unified-extensions-item) {
-    padding-inline-end: calc(var(--urlbar-margin-inline) - var(--toolbarbutton-outer-padding)) !important;
-  }
-  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container, #stop-reload-button, .unified-extensions-item) {
-    padding-inline-end: var(--urlbar-margin-inline) !important;
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)) {
+    &:is(#stop-reload-button, .unified-extensions-item) {
+      padding-inline-end: calc(var(--urlbar-margin-inline) - var(--toolbarbutton-outer-padding)) !important;
+    }
+    &:not(#urlbar-container, #stop-reload-button, .unified-extensions-item) {
+      padding-inline-end: var(--urlbar-margin-inline) !important;
+    }
   }
 }
 
 /* pad last visible item (small window) */
 @media (max-width: 1200px) {
   /* need to be explicit about hbox else FireFox crashes on dialog box popup for some reason */
-  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#urlbar-container) {
-    margin-inline-end: var(--toolbar-start-end-padding) !important;
-  }
-  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):is(#stop-reload-button, .unified-extensions-item) {
-    padding-inline-end: calc(var(--toolbar-start-end-padding) - var(--toolbarbutton-outer-padding)) !important;
-  }
-  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)):not(#urlbar-container, #stop-reload-button, .unified-extensions-item) {
-    padding-inline-end: var(--toolbar-start-end-padding) !important;
+  hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)) {
+    &:is(#urlbar-container) {
+      margin-inline-end: var(--toolbar-start-end-padding) !important;
+    }
+    &:is(#stop-reload-button, .unified-extensions-item) {
+      padding-inline-end: calc(var(--toolbar-start-end-padding) - var(--toolbarbutton-outer-padding)) !important;
+    }
+    &:not(#urlbar-container, #stop-reload-button, .unified-extensions-item) {
+      padding-inline-end: var(--toolbar-start-end-padding) !important;
+    }
   }
 }
 
@@ -428,7 +433,7 @@ findbar {
 /* find bar transiton */
 findbar {
   height: 40px !important;
-  overflow-y: hidden !important;
+  overflow: hidden !important;
   transition-property: top, height, padding-block, visibility !important;
   transition-duration: var(--findbar-transition-duration), var(--findbar-transition-duration), var(--findbar-transition-duration), 0s !important;
   transition-timing-function: ease-in-out, ease-in-out, ease-in-out, linear !important;

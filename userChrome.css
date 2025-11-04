@@ -250,7 +250,7 @@
 }
 
 /* show background on hover/focus */
-#urlbar:not(:hover, [focused]) #urlbar-background {
+#urlbar:not(:hover, [focused]) .urlbar-background {
   background: none !important;
 }
 

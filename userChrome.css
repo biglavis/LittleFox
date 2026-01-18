@@ -311,17 +311,6 @@
   margin-inline-end: 0px !important;
 }
 
-/* normalize tab group padding */
-.tab-group-label-container {
-  margin-inline-start: 0px !important;
-  padding-inline: var(--tab-overflow-clip-margin) !important;
-  box-sizing: content-box !important;
-}
-.tab-group-overflow-count-container {
-  margin-inline-end: 0px !important;
-  padding-inline-end: var(--tab-overflow-clip-margin) !important;
-}
-
 /* hide tab group label outline */
 .tab-group-label {
   outline: none !important;

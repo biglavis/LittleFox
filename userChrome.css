@@ -6,6 +6,9 @@
  */
 
 :root {
+  /* Minimum window width */
+  --window_min_width: 450px;
+
   /* Show/hide reload button
    * show: flex
    * hide: none
@@ -101,6 +104,9 @@
 }
 
 :root {
+  /* set minimum window width */
+  min-width: var(--window_min_width) !important;
+
   /* hide panel borders */
   --arrowpanel-border-color: transparent !important;
 
@@ -396,7 +402,7 @@
   --show-margin: round(up, calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words)) / 4));
   --options-width: calc(34px*var(--show-highlight-all) + 34px*var(--show-match-case) + 34px*var(--show-match-diacritics) + 34px*var(--show-whole-words) + 4px*var(--show-margin));
 
-  --findbar-min-width: calc(450px - 2 * var(--findbar-right)); /* minimum browser width = 450px */
+  --findbar-min-width: calc(var(--window_min_width) - 2 * var(--findbar-right));
   --findbar-min-width-expanded: calc(var(--findbar-min-width) + var(--options-width));
   --findbar-max-width: calc(100vw - 2 * var(--findbar-right));
   --findbar-width-use: clamp(var(--findbar-min-width-expanded), var(--findbar-width), var(--findbar-max-width));

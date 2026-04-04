@@ -29,7 +29,7 @@
 
   /* Find bar distance from window corners */
   --findbar-top: 12px;
-  --findbar-right: max(2vw, 30px); /* scrollbar is 18px */
+  --findbar-right: max(2vw, 24px); /* scrollbar is 12px */
 
   /* Find bar transition duration
    * changes the duration of the find bar open/close transition animation
@@ -260,7 +260,7 @@
 }
 
 /* hide identity box and "shield" buttons */
-#urlbar:not([focused]):not(:has(:is(#tracking-protection-icon-container, #identity-box > *):is(:hover, [open]))) :is(#tracking-protection-icon-container, #identity-box) {
+#urlbar:not([focused]):not(:has(:is(#trust-icon-container, #tracking-protection-icon-container, #identity-box > *):is(:hover, [open]))) :is(#trust-icon-container, #tracking-protection-icon-container, #identity-box) {
   display: none !important
 }
 

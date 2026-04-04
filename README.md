@@ -68,7 +68,7 @@ Several UI elements can be customized by changing the variable values at the top
 
   /* Find bar distance from window corners */
   --findbar-top: 12px;
-  --findbar-right: max(2vw, 30px); /* scrollbar is 18px */
+  --findbar-right: max(2vw, 24px); /* scrollbar is 12px */
 
   /* Find bar transition duration
    * changes the duration of the find bar open/close transition animation

@@ -265,8 +265,8 @@
   padding-left: var(--urlbar-icon-padding) !important;
 }
 
-/* hide "shield", identity box, and page action buttons except zoom */
-#urlbar:not(:hover, [focused], :has(:is(:hover, [open]))) :is(#trust-icon-container, #tracking-protection-icon-container, #identity-box, #page-action-buttons > :not(#urlbar-zoom-button)) {
+/* hide "shield", identity box, and page action buttons */
+#urlbar:not(:hover, [focused], :has(:is(:hover, [open]))) :is(#trust-icon-container, #tracking-protection-icon-container, #identity-box, #page-action-buttons > :not(#reader-mode-button[readeractive], #translations-button[translationsactive], #urlbar-zoom-button)) {
   display: none !important
 }
 

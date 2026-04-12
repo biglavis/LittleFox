@@ -265,14 +265,14 @@
   padding-left: var(--urlbar-icon-padding) !important;
 }
 
-/* hide identity box and "shield" buttons */
-#urlbar:not([focused]):not(:has(:is(#trust-icon-container, #tracking-protection-icon-container, #identity-box > *):is(:hover, [open]))) :is(#trust-icon-container, #tracking-protection-icon-container, #identity-box) {
+/* hide "shield", identity box, and page action buttons except zoom */
+#urlbar:not(:hover, [focused], :has(:is(:hover, [open]))) :is(#trust-icon-container, #tracking-protection-icon-container, #identity-box, #page-action-buttons > :not(#urlbar-zoom-button)) {
   display: none !important
 }
 
-/* hide all page action buttons except zoom */
-#urlbar:not(:hover, [focused]) #page-action-buttons > :not([open], #urlbar-zoom-button) {
-  display: none !important
+/* position zoom button last */
+#urlbar-zoom-button {
+  order: 99 !important
 }
 
 
@@ -523,7 +523,7 @@ label.found-matches {
   color: var(--toolbar-color);
 }
 .findbar-match-diacritics::before {
-  content: "àë";
+  content: "aá";
   font-weight: bold;
   color: var(--toolbar-color);
 }

@@ -45,9 +45,6 @@ Several UI elements can be customized by changing the variable values at the top
  */
 
 :root {
-  /* Minimum window width */
-  --window_min_width: 450px;
-
   /* Show/hide reload button
    * show: flex
    * hide: none

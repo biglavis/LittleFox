@@ -6,51 +6,50 @@
  */
 
 :root {
-  /* Show/hide reload button
-   * show: flex
-   * hide: none
-   */
-  --show-reload: none;
-
-  /* Navigation bar width
-   * max width is applied when url bar is expanded
+  /* Navigation Bar Width
+   * Max width is applied when url bar is expanded.
    */
   --navbar-width: max(35vw, 500px);
   --navbar-max-width: max(60vw, 800px);
 
-  /* Dynamic tab width */
+  /* Dynamic Tab Width */
   --active-tab-width: clamp(100px, 24vw, 240px);    
   --inactive-tab-width: clamp(100px, 18vw, 180px);
 
-  /* Preferred find bar width
-   * set to 0px for minimum width
+  /* Dynamic Bookmarks Toolbar
+   * If enabled, hide bookmarks toolbar and show when url bar is hovered
+   * Ensure bookmarks toolbar is set to "always show" for proper behavior
+   * Enabled: 1, absolute
+   * Disabled: 0, static
+   */
+  --dynamic-bookmarks: 1; --bookmarks-position: absolute;
+  /* --dynamic-bookmarks: 0; --bookmarks-position: static; */
+
+  /* Dynamic Bookmarks Toolbar Hover Delay */
+  --dynamic-bookmarks-hover-delay: 450ms;
+
+  /* Dynamic Bookmarks Toolbar Hide Delay */
+  --dynamic-bookmarks-hide-delay: 50ms;
+
+  /* Preferred Find Bar Width
+   * Set to 0px for minimum width
    */
   --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
 
-  /* Find bar distance from window corners */
+  /* Find Bar Distance from Window Corners */
   --findbar-top: 12px;
   --findbar-right: max(2vw, 24px); /* scrollbar is 12px */
 
-  /* Find bar transition duration
-   * changes the duration of the find bar open/close transition animation
-   */
-  --findbar-transition-duration: 100ms;
-
-  /* Find bar transition distance
-   * changes how far the find bar travels down/up during the open/close transition animation
-   */
-  --findbar-transition-distance: 20px;
-
-  /* Show/hide find bar options
-   * show: 1
-   * hide: 0
+  /* Show/Hide Find Bar Options
+   * Show: 1
+   * Hide: 0
    */
   --show-highlight-all:    1;
   --show-match-case:       1;
   --show-match-diacritics: 1;
   --show-whole-words:      1;
 
-  /* Find bar options position */
+  /* Find Bar Options Position */
   --highlight-all-position:    0;
   --match-case-position:       1;
   --match-diacritics-position: 2;
@@ -96,8 +95,13 @@
 
   #PersonalToolbar {
     order: 3;
-    width: 100% !important;
   }
+}
+
+#PersonalToolbar {
+  width: 100% !important;
+  position: var(--bookmarks-position) !important;
+  top: 100% !important;
 }
 
 :root {
@@ -111,6 +115,7 @@
 /* hide navigator toolbox border */
 #navigator-toolbox {
   border: none !important;
+  z-index: 1000 !important;
 }
 
 /* hide context menu border */
@@ -161,7 +166,6 @@
   overflow: hidden !important;
   transition: width 100ms ease-out, padding 100ms ease-out !important;
 }
-
 /* show extensions button on interaction or when hamburger menu is hovered */
 #nav-bar:has(#PanelUI-menu-button:not([open]):hover) #unified-extensions-button,
 #unified-extensions-button:is(:hover, [open], :has(.toolbarbutton-icon[showing])) {
@@ -181,11 +185,6 @@
 #forward-button[disabled], #back-button[disabled] {
   width: 0px !important;
   padding: 0px !important;
-}
-
-/* show/hide reload button */
-#stop-reload-button {
-  display: var(--show-reload) !important;
 }
 
 /* remove margins from extension buttons*/
@@ -219,7 +218,7 @@
   }
 }
 
-/* pad last visible item (small window) */
+/* pad last visible item before tabs (small window) */
 @media (max-width: 1200px) {
   /* need to be explicit about hbox else FireFox crashes on dialog box popup for some reason */
   hbox#nav-bar-customization-target > :nth-last-child(1 of :is(toolbarbutton, toolbaritem):not([disabled], #unified-extensions-button)) {
@@ -295,7 +294,7 @@
   #pinned-tabs-container, #tabbrowser-tabs:not([overflow], :has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox {
     /* & > .tabbrowser-tab:first-child, & > tab-group:first-child > .tab-group-label-container { */
     & > tab-group:first-child > .tab-group-label-container {
-      padding-inline-start: calc(2 * var(--tab-overflow-clip-margin)) !important;
+      padding-inline-start: var(--tab-overflow-clip-margin) !important;
     }
   }
 }
@@ -311,9 +310,13 @@
   margin-inline-end: 0px !important;
 }
 
-/* hide tab group label outline */
+/* hide tab group label outline & add smooth color transition */
 .tab-group-label {
   outline: none !important;
+  transition:
+    color var(--tab-group-label-animation-duration) ease-out,
+    background-color var(--tab-group-label-animation-duration) ease-out,
+    box-shadow var(--tab-group-label-animation-duration) ease-out !important;
 }
 
 /* hide tab shadow & outline */
@@ -347,10 +350,28 @@
  *    `--'    `-----'  `-----' `-----'`------' `--' `--'`--' '--' 
  */
 
-/* rounded toolbar corners */
+/* dynamic bookmarks toolbar */
 #PersonalToolbar {
-  border-top-left-radius: var(--tab-border-radius) !important;
-  border-top-right-radius: var(--tab-border-radius) !important;
+  opacity: calc(1 - var(--dynamic-bookmarks)) !important;
+  transform-origin: top;
+  transform: scaleY(calc(1 - 0.04 * var(--dynamic-bookmarks))) translateY(calc(-4px * var(--dynamic-bookmarks))) !important;
+  max-height: calc(4em - 4em * var(--dynamic-bookmarks)) !important;
+  transition:
+    opacity 100ms ease-out var(--dynamic-bookmarks-hide-delay),
+    transform 100ms ease-out var(--dynamic-bookmarks-hide-delay),
+    max-height 0s step-end calc(100ms + var(--dynamic-bookmarks-hide-delay)),
+    var(--ext-theme-background-transition) !important;
+}
+/* show bookmarks toolbar when url bar is hovered */
+#navigator-toolbox:not(:has(#urlbar[open])):has(#urlbar-container:hover, #PersonalToolbar:hover, #PersonalToolbar toolbarbutton[open]) #PersonalToolbar {
+  opacity: 1 !important;
+  transform: scaleY(1) translateY(0px) !important;
+  max-height: 4em !important;
+  transition-delay: var(--dynamic-bookmarks-hover-delay), var(--dynamic-bookmarks-hover-delay), 0s, 0s !important;
+}
+/* immediately hide when url bar is opened */
+#navigator-toolbox:has(#urlbar[open]) #PersonalToolbar {
+  transition-delay: 0s, 0s, 100ms, 0s !important;
 }
 
 /* toolbar button margins */ 
@@ -421,25 +442,15 @@ findbar {
 
 /* find bar transiton */
 findbar {
-  height: 40px !important;
-  overflow: hidden !important;
-  transition-property: top, height, padding-block, visibility !important;
-  transition-duration: var(--findbar-transition-duration), var(--findbar-transition-duration), var(--findbar-transition-duration), 0s !important;
-  transition-timing-function: ease-in-out, ease-in-out, ease-in-out, linear !important;
-  transition-delay: 0s, 0s, 0s, 0s !important;
+  opacity: 1 !important;
+  transform-origin: top !important;
+  transform: scaleY(1) translateY(0px) !important;
+  transition: opacity 100ms ease-out, transform 100ms ease-out, visibility 0s step-end !important;
 }
 findbar[hidden] {
-  top: calc(var(--findbar-top) - var(--findbar-transition-distance)) !important;
-  height: 0px !important;
-  padding-block: 0px !important;
-  transition-delay: 0s, 0s, 0s, var(--findbar-transition-duration) !important;
-}
-findbar > * {
-  transition-duration: calc(var(--findbar-transition-duration) / 2) !important;
-  transition-delay: calc(var(--findbar-transition-duration) / 2) !important;
-}
-findbar[hidden] > * {
-  transition-delay: 0s !important;
+  opacity: 0 !important;
+  transform: scaleY(0.96) translateY(-4px) !important;
+  transition-delay: 0s, 0s, 100ms !important;
 }
 
 /* format textbox */
@@ -529,10 +540,10 @@ label.found-matches {
   grid-column: 1;
 }
 .findbar-entire-word::after {
+  content: "";
   width: 1.3em;
   height: 0.2em;
   margin-bottom: -1em;
-  content: "";
   border-left: 2px solid var(--toolbar-color);
   border-right: 2px solid var(--toolbar-color);
   border-bottom: 1px solid var(--toolbar-color);

@@ -2,7 +2,7 @@
 
 # LittleFox
 
-A minimalistic, mouse centered CSS theme for FireFox, inspired by [Cascade](https://github.com/cascadefox/cascade).
+**A minimalistic, mouse centered CSS theme for FireFox, inspired by [Cascade](https://github.com/cascadefox/cascade).**
 
 ![Preview](/assets/head.webp)
 
@@ -45,51 +45,50 @@ Several UI elements can be customized by changing the variable values at the top
  */
 
 :root {
-  /* Show/hide reload button
-   * show: flex
-   * hide: none
-   */
-  --show-reload: none;
-
-  /* Navigation bar width
-   * max width is applied when url bar is expanded
+  /* Navigation Bar Width
+   * Max width is applied when url bar is expanded.
    */
   --navbar-width: max(35vw, 500px);
   --navbar-max-width: max(60vw, 800px);
 
-  /* Dynamic tab width */
+  /* Dynamic Tab Width */
   --active-tab-width: clamp(100px, 24vw, 240px);    
   --inactive-tab-width: clamp(100px, 18vw, 180px);
 
-  /* Preferred find bar width
-   * set to 0px for minimum width
+  /* Dynamic Bookmarks Toolbar
+   * If enabled, hide bookmarks toolbar and show when url bar is hovered
+   * Ensure bookmarks toolbar is set to "always show" for proper behavior
+   * Enabled: 1, absolute
+   * Disabled: 0, static
+   */
+  --dynamic-bookmarks: 1; --bookmarks-position: absolute;
+  /* --dynamic-bookmarks: 0; --bookmarks-position: static; */
+
+  /* Dynamic Bookmarks Toolbar Hover Delay */
+  --dynamic-bookmarks-hover-delay: 450ms;
+
+  /* Dynamic Bookmarks Toolbar Hide Delay */
+  --dynamic-bookmarks-hide-delay: 50ms;
+
+  /* Preferred Find Bar Width
+   * Set to 0px for minimum width
    */
   --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
 
-  /* Find bar distance from window corners */
+  /* Find Bar Distance from Window Corners */
   --findbar-top: 12px;
   --findbar-right: max(2vw, 24px); /* scrollbar is 12px */
 
-  /* Find bar transition duration
-   * changes the duration of the find bar open/close transition animation
-   */
-  --findbar-transition-duration: 100ms;
-
-  /* Find bar transition distance
-   * changes how far the find bar travels down/up during the open/close transition animation
-   */
-  --findbar-transition-distance: 20px;
-
-  /* Show/hide find bar options
-   * show: 1
-   * hide: 0
+  /* Show/Hide Find Bar Options
+   * Show: 1
+   * Hide: 0
    */
   --show-highlight-all:    1;
   --show-match-case:       1;
   --show-match-diacritics: 1;
   --show-whole-words:      1;
 
-  /* Find bar options position */
+  /* Find Bar Options Position */
   --highlight-all-position:    0;
   --match-case-position:       1;
   --match-diacritics-position: 2;

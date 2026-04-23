@@ -112,10 +112,16 @@
   --toolbar-field-focus-border-color: transparent !important;
 }
 
+/* add support for dynamic bookmarks toolbar */
+#navigator-toolbox {
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
 /* hide navigator toolbox border */
 #navigator-toolbox {
   border: none !important;
-  z-index: 1000 !important;
+  background-color: inherit !important;
 }
 
 /* hide context menu border */

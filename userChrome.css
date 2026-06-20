@@ -171,14 +171,14 @@
 }
 
 /* dynamic forward/back button */
-#forward-button, #back-button {
+#nav-bar-customization-target > :is(#forward-button, #back-button) {
   width: calc(2 * var(--toolbarbutton-padding-inner) + 16px) !important;
   box-sizing: content-box !important;
   overflow: hidden !important;
   justify-content: flex-start !important;
   transition: width 100ms ease-out, padding 100ms ease-out !important;
 }
-#forward-button[disabled], #back-button[disabled] {
+#nav-bar-customization-target > :is(#forward-button, #back-button):is([disabled]) {
   width: 0px !important;
   padding: 0px !important;
 }
@@ -189,16 +189,14 @@
 }
 
 /* override default first item padding */
-#nav-bar-customization-target > :first-child:not([disabled], #unified-extensions-button) {
+#nav-bar-customization-target > toolbarpaletteitem:first-child > *,
+#nav-bar-customization-target > :first-child:not([disabled]) {
   &:is(toolbarbutton) {
     padding-inline-start: var(--toolbarbutton-padding-outer) !important;
   }
   &:is(toolbaritem) {
     padding-inline-start: 0px !important;
   }
-}
-#nav-bar-customization-target > :is(toolbaritem):not([disabled], #unified-extensions-button):first-child {
-  padding-inline-start: 0px !important;
 }
 
 /* pad last visible item in nav bar (large window) */

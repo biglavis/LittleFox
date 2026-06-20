@@ -126,6 +126,7 @@
 
   #PersonalToolbar {
     order: 3;
+    width: 100% !important;
   }
 }
 
@@ -354,8 +355,7 @@
   position: relative !important;
   z-index: 9999 !important;
 }
-#PersonalToolbar {
-  width: 100% !important;
+#PersonalToolbar:not(:has(toolbarpaletteitem)) {
   position: var(--bookmarks-position) !important;
   top: 100% !important;
   opacity: calc(1 - var(--dynamic-bookmarks)) !important;

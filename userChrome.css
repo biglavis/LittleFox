@@ -16,6 +16,11 @@
   --active-tab-width: clamp(100px, 24vw, 240px);    
   --inactive-tab-width: clamp(100px, 18vw, 180px);
 
+  /* Dynamic Toolbar Buttons Hover Delay
+   * Hover hamburger menu to reveal additional toolbar buttons
+   */
+  --dynamic-buttons-hover-delay: 450ms;
+
   /* Dynamic Bookmarks Toolbar
    * If enabled, hide bookmarks toolbar and show when url bar is hovered
    * Ensure bookmarks toolbar is set to "always show" for proper behavior
@@ -126,7 +131,6 @@
 
   #PersonalToolbar {
     order: 3;
-    width: 100% !important;
   }
 }
 
@@ -146,29 +150,46 @@
 
 /* hamburger menu */
 #PanelUI-button {
-  order: -2 !important;
+  order: -1 !important;
 }
 #PanelUI-menu-button {
   padding-inline-start: var(--toolbar-padding-inline) !important;
   padding-inline-end: var(--toolbarbutton-padding-outer) !important;
 }
 
-/* dynamic extensions button */
-#unified-extensions-button {
-  order: -1 !important;
+/* dynamic toolbar buttons */
+#nav-bar-customization-target > :not(#home-button, #forward-button, #back-button, #stop-reload-button, :is(#home-button, #forward-button, #back-button, #stop-reload-button, :not(toolbarbutton, .unified-extensions-item, #vertical-spacer)) ~ *):is(toolbarbutton, .unified-extensions-item) {
+  opacity: 0 !important;
   width: 0px !important;
   padding: 0px !important;
   box-sizing: content-box !important;
-  justify-content: flex-start !important;
+  justify-content: flex-end !important;
   overflow: hidden !important;
-  transition: width 100ms ease-out, padding 100ms ease-out !important;
+  transition: opacity 100ms ease-out, width 100ms ease-out, padding 100ms ease-out !important;
 }
-/* show extensions button on interaction or when hamburger menu is hovered */
-#nav-bar:has(#PanelUI-menu-button:not([open]):hover) #unified-extensions-button,
-#unified-extensions-button:is(:hover, [open], :has(.toolbarbutton-icon[showing])) {
-  width: calc(2 * var(--toolbarbutton-padding-inner) + 16px) !important;
-  padding: 0px var(--toolbarbutton-padding-outer) !important;
-  transition-delay: 450ms !important;
+/* show buttons on interaction or when hamburger menu is hovered */
+#nav-bar:has(#PanelUI-menu-button:not([open]):hover) #nav-bar-customization-target,
+#nav-bar-customization-target:has(> :not(#home-button, #forward-button, #back-button, #stop-reload-button, :is(#home-button, #forward-button, #back-button, #stop-reload-button, :not(toolbarbutton, .unified-extensions-item, #vertical-spacer)) ~ *):is(toolbarbutton, .unified-extensions-item):is(:hover, [open], :has(.toolbarbutton-icon[showing]))),
+#nav-bar-customization-target:has(> :not(#home-button, #forward-button, #back-button, #stop-reload-button, :is(#home-button, #forward-button, #back-button, #stop-reload-button, :not(toolbarbutton, .unified-extensions-item, #vertical-spacer)) ~ *):is(toolbarbutton, .unified-extensions-item) *:is(:hover, [open], :has(.toolbarbutton-icon[showing]))) {
+  & > :not(#home-button, #forward-button, #back-button, #stop-reload-button, :is(#home-button, #forward-button, #back-button, #stop-reload-button, :not(toolbarbutton, .unified-extensions-item, #vertical-spacer)) ~ *) {
+    &:is(toolbaritem) {
+      opacity: 1 !important;
+      width: calc(2 * var(--toolbarbutton-padding-inner) + 2 * var(--toolbarbutton-padding-outer) + 16px) !important;
+      transition-delay: var(--dynamic-buttons-hover-delay) !important;
+    }
+    &:is(toolbarbutton:not(#ipprotection-button)) {
+      opacity: 1 !important;
+      width: calc(2 * var(--toolbarbutton-padding-inner) + 16px) !important;
+      padding: 0px var(--toolbarbutton-padding-outer) !important;
+      transition-delay: var(--dynamic-buttons-hover-delay) !important;
+    }
+    &:is(#ipprotection-button) {
+      opacity: 1 !important;
+      width: calc(2 * var(--toolbarbutton-padding-inner) + var(--size-image-small)) !important;
+      padding: 0px var(--toolbarbutton-padding-outer) !important;
+      transition-delay: var(--dynamic-buttons-hover-delay) !important;
+    }
+  }
 }
 
 /* dynamic forward/back button */
@@ -185,7 +206,7 @@
 }
 
 /* remove margins from extension buttons*/
-.toolbaritem-combined-buttons {
+.unified-extensions-item {
   margin-inline: 0px !important;
 }
 
@@ -357,6 +378,7 @@
 }
 #PersonalToolbar:not(:has(toolbarpaletteitem)) {
   position: var(--bookmarks-position) !important;
+  width: 100% !important;
   top: 100% !important;
   opacity: calc(1 - var(--dynamic-bookmarks)) !important;
   transform-origin: top;

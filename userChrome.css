@@ -134,6 +134,11 @@
   }
 }
 
+/* enforce bookmarks toolbar width */
+#PersonalToolbar {
+  width: 100% !important;
+}
+
 
 
 /* ,--.  ,--.  ,---.,--.   ,--.      ,-----.    ,---.  ,------.  
@@ -378,7 +383,6 @@
 }
 #PersonalToolbar:not(:has(toolbarpaletteitem)) {
   position: var(--bookmarks-position) !important;
-  width: 100% !important;
   top: 100% !important;
   opacity: calc(1 - var(--dynamic-bookmarks)) !important;
   transform-origin: top;

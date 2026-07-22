@@ -148,9 +148,10 @@
  * `--'  `--'`--' `--'  `-'          `------' `--' `--'`--' '--' 
  */
 
-/* hide nav bar background */
+/* hide nav bar background and border */
 #nav-bar {
   background: none !important;
+  border: none !important;
 }
 
 /* hamburger menu */

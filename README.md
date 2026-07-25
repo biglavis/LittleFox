@@ -18,19 +18,19 @@
 
 4. Copy the downloaded [**`userChrome.css`**](https://github.com/biglavis/LittleFox/blob/main/userChrome.css) into the **`chrome`** folder and restart Firefox.
 
-## Features
-
-LittleFox is designed to be mouse friendly while maintaining a minimalist aesthetic. This theme draws inspiration from [Cascade](https://github.com/cascadefox/cascade), adapting several of its design elements with tweaks to improve mouse usability, while also introducing many original features such as:
+## Key Features
 
 **Dynamic UI Buttons**
 
-![DynamicButtons](/assets/DynamicButtons.gif)
+![DynamicButtons](/assets/dynamic_buttons.webp)
+
+**Dynamic Bookmarks Toolbar**
+
+![DynamicBookmarks](/assets/dynamic_bookmarks_toolbar.webp)
 
 **Customizable Floating Find Bar**
 
-![Findbar](/assets/Findbar.gif)
-
-**... and more!**
+![Findbar](/assets/findbar.webp)
 
 ## Customization
 

@@ -102,41 +102,47 @@
 
 /* large window one-line layout */
 @media (min-width: 1200px) {
-  #navigator-toolbox {
+  /* do not apply to web apps */
+  #navigator-toolbox:not([tabs-hidden]) {
     display: flex !important;
     flex-wrap: wrap !important;
     flex-direction: row !important;
-  }
 
-  #toolbar-menubar {
-    order: 0;
-    width: 100% !important;
-  }
+    & #toolbar-menubar {
+      order: 0;
+      width: 100% !important;
+    }
 
-  #nav-bar {
-    order: 1;
-    width: var(--navbar-width) !important;
-  }
-  #nav-bar:has(#urlbar[open]) {
-    width: var(--navbar-max-width) !important;
-  }
+    & #nav-bar {
+      order: 1;
+      width: var(--navbar-width) !important;
+    }
+    & #nav-bar:has(#urlbar[open]) {
+      width: var(--navbar-max-width) !important;
+    }
 
-  #TabsToolbar {
-    order: 2;
-    width: auto !important;
-  }
-  #navigator-toolbox:has(#urlbar[open]) #TabsToolbar {
-    margin-left: calc(var(--navbar-width) - var(--navbar-max-width)) !important;
-  }
+    & #TabsToolbar {
+      order: 2;
+      width: calc(100% - var(--navbar-width)) !important;
+    }
+    & #navigator-toolbox:has(#urlbar[open]) #TabsToolbar {
+      margin-left: calc(var(--navbar-width) - var(--navbar-max-width)) !important;
+    }
 
-  #PersonalToolbar {
-    order: 3;
+    & #PersonalToolbar {
+      order: 3;
+    }
   }
 }
 
 /* enforce bookmarks toolbar width */
 #PersonalToolbar {
   width: 100% !important;
+}
+
+/* web app: add margin left of title bar buttons so that there is always a draggable area*/
+#nav-bar .titlebar-buttonbox-container {
+  margin-left: 40px !important;
 }
 
 
@@ -154,6 +160,13 @@
   border: none !important;
 }
 
+/* web app icon */
+#taskbar-tabs-favicon {
+  order: -2 !important;
+  padding-inline-start: var(--toolbar-padding-inline) !important;
+  padding-inline-end: var(--toolbarbutton-padding-outer) !important;
+}
+
 /* hamburger menu */
 #PanelUI-button {
   order: -1 !important;
@@ -161,6 +174,9 @@
 #PanelUI-menu-button {
   padding-inline-start: var(--toolbar-padding-inline) !important;
   padding-inline-end: var(--toolbarbutton-padding-outer) !important;
+}
+#navigator-toolbox[tabs-hidden] #PanelUI-menu-button {
+  padding-inline-start: 0px !important;
 }
 
 /* dynamic toolbar buttons */

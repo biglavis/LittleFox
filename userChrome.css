@@ -107,12 +107,11 @@
     display: flex !important;
     flex-wrap: wrap !important;
     flex-direction: row !important;
-
+    
     & #toolbar-menubar {
       order: 0;
       width: 100% !important;
     }
-
     & #nav-bar {
       order: 1;
       width: var(--navbar-width) !important;
@@ -120,7 +119,6 @@
     & #nav-bar:has(#urlbar[open]) {
       width: var(--navbar-max-width) !important;
     }
-
     & #TabsToolbar {
       order: 2;
       width: calc(100% - var(--navbar-width)) !important;
@@ -128,21 +126,30 @@
     & #navigator-toolbox:has(#urlbar[open]) #TabsToolbar {
       margin-left: calc(var(--navbar-width) - var(--navbar-max-width)) !important;
     }
-
     & #PersonalToolbar {
       order: 3;
     }
   }
 }
 
+/* web app layout */
+#navigator-toolbox[tabs-hidden] {
+  /* add margin left of title bar buttons to match one-line layout*/
+  & .titlebar-buttonbox-container {
+    margin-left: calc(100% - var(--navbar-width) - 138px) !important;
+  }
+  /* web app icon */
+  & #taskbar-tabs-favicon {
+    order: -2 !important;
+    padding-inline-start: var(--toolbar-padding-inline) !important;
+    padding-inline-end: var(--toolbarbutton-padding-outer) !important;
+  }
+
+}
+
 /* enforce bookmarks toolbar width */
 #PersonalToolbar {
   width: 100% !important;
-}
-
-/* web app: add margin left of title bar buttons so that there is always a draggable area*/
-#nav-bar .titlebar-buttonbox-container {
-  margin-left: 40px !important;
 }
 
 
@@ -158,13 +165,6 @@
 #nav-bar {
   background: none !important;
   border: none !important;
-}
-
-/* web app icon */
-#taskbar-tabs-favicon {
-  order: -2 !important;
-  padding-inline-start: var(--toolbar-padding-inline) !important;
-  padding-inline-end: var(--toolbarbutton-padding-outer) !important;
 }
 
 /* hamburger menu */

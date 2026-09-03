@@ -487,12 +487,14 @@
 /* floating find bar */
 findbar {
   position: absolute !important;
+  grid-area: auto !important;
   top: var(--findbar-top) !important;
   left: var(--findbar-right) !important;
   right: var(--findbar-right) !important;
   width: var(--findbar-width-use) !important;
   max-width: var(--findbar-max-width) !important;
   margin-left: auto !important;
+  margin-bottom: 0 !important;
   border: none !important;
   border-radius: var(--panel-border-radius) !important;
   box-shadow: var(--panel-box-shadow) !important;

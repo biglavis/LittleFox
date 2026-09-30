@@ -34,7 +34,7 @@
 
 ## Customization
 
-Several UI elements can be customized by changing the variable values at the top of [**`userChrome.css`**](https://github.com/biglavis/LittleFox/blob/main/userChrome.css).
+Several UI elements can be customized by modifying the variable values at the top of [**`userChrome.css`**](https://github.com/biglavis/LittleFox/blob/main/userChrome.css).
 
 ```css
 /*  ,-----. ,-----. ,--.  ,--.,------.,--. ,----.    
@@ -55,14 +55,18 @@ Several UI elements can be customized by changing the variable values at the top
   --active-tab-width: clamp(100px, 24vw, 240px);    
   --inactive-tab-width: clamp(100px, 18vw, 180px);
 
+  /* Dynamic Toolbar Buttons Hover Delay
+   * Hover hamburger menu to reveal additional toolbar buttons
+   */
+  --dynamic-buttons-hover-delay: 450ms;
+
   /* Dynamic Bookmarks Toolbar
    * If enabled, hide bookmarks toolbar and show when url bar is hovered
    * Ensure bookmarks toolbar is set to "always show" for proper behavior
-   * Enabled: 1, absolute
-   * Disabled: 0, static
+   * Enabled: 1
+   * Disabled: 0
    */
-  --dynamic-bookmarks: 1; --bookmarks-position: absolute;
-  /* --dynamic-bookmarks: 0; --bookmarks-position: static; */
+  --dynamic-bookmarks: 1;
 
   /* Dynamic Bookmarks Toolbar Hover Delay */
   --dynamic-bookmarks-hover-delay: 450ms;
@@ -95,3 +99,7 @@ Several UI elements can be customized by changing the variable values at the top
   --whole-words-position:      3;
 }
 ```
+
+---
+
+Inspired by and adapted from **[Cascade](https://github.com/cascadefox/cascade)** | Shoutout to **[FoxOne](https://github.com/Firnschnee/FoxOne)** for the `@container` logic used in the dynamic bookmarks toolbar

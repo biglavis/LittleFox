@@ -100,6 +100,7 @@ Several UI elements can be customized by modifying the variable values at the to
 }
 ```
 
----
+## Acknowledgements
 
-Inspired by and adapted from **[Cascade](https://github.com/cascadefox/cascade)** | Shoutout to **[FoxOne](https://github.com/Firnschnee/FoxOne)** for the `@container` logic used in the dynamic bookmarks toolbar
+* Inspired by and adapted from **[Cascade](https://github.com/cascadefox/cascade)**.
+* Shoutout to **[FoxOne](https://github.com/Firnschnee/FoxOne)** for the `@container` logic used in the dynamic bookmarks toolbar.

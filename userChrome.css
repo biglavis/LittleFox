@@ -667,11 +667,11 @@ label.found-matches {
 /* checkbox hover/active background */
 .findbar-container > checkbox:not([checked]):hover {
   background-color: var(--toolbarbutton-background-color-hover) !important;
-  border-radius: var(--border-radius-circle) !important;
+  border-radius: var(--toolbarbutton-border-radius) !important;
 }
 .findbar-container > checkbox[checked] {
   background-color: var(--toolbarbutton-background-color-active) !important;
-  border-radius: var(--border-radius-circle) !important;
+  border-radius: var(--toolbarbutton-border-radius) !important;
 }
 
 /* format close button */

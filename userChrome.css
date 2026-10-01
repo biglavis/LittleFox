@@ -537,11 +537,15 @@ findbar {
   max-width: var(--findbar-max-width) !important;
   margin-left: auto !important;
   margin-bottom: 0 !important;
-  background-color: inherit !important;
-  background-image: linear-gradient(var(--toolbar-background-color), var(--toolbar-background-color)) !important;
   border: none !important;
   border-radius: var(--panel-border-radius) !important;
   box-shadow: var(--panel-box-shadow) !important;
+}
+
+/* find bar background */
+#main-window:not([privatebrowsingmode]) findbar {
+  background-color: inherit !important;
+  background-image: linear-gradient(var(--toolbar-background-color), var(--toolbar-background-color)) !important;
 }
 
 /* find bar transiton */

@@ -74,14 +74,25 @@ Several UI elements can be customized by modifying the variable values at the to
   /* Dynamic Bookmarks Toolbar Hide Delay */
   --dynamic-bookmarks-hide-delay: 50ms;
 
+  /* Floating Bookmarks Toolbar
+   * (Only with Dynamic Bookmarks Toolbar enabled)
+   * Enabled: 1
+   * Disabled: 0
+   */
+  --floating-bookmarks: 1;
+
+  /* Floating Bookmars Toolbar Distance from Window Corners */
+  --floating-bookmarks-top: 4px;
+  --floating-bookmarks-inline: 6px;
+
   /* Preferred Find Bar Width
    * Set to 0px for minimum width
    */
   --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
 
   /* Find Bar Distance from Window Corners */
-  --findbar-top: 12px;
-  --findbar-right: max(2vw, 24px); /* scrollbar is 12px */
+  --findbar-top: 8px;
+  --findbar-right: max(2vw, 16px); /* scrollbar is 12px */
 
   /* Show/Hide Find Bar Options
    * Show: 1

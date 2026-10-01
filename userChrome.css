@@ -35,14 +35,25 @@
   /* Dynamic Bookmarks Toolbar Hide Delay */
   --dynamic-bookmarks-hide-delay: 50ms;
 
+  /* Floating Bookmarks Toolbar
+   * (Only with Dynamic Bookmarks Toolbar enabled)
+   * Enabled: 1
+   * Disabled: 0
+   */
+  --floating-bookmarks: 1;
+
+  /* Floating Bookmars Toolbar Distance from Window Corners */
+  --floating-bookmarks-top: 4px;
+  --floating-bookmarks-inline: 6px;
+
   /* Preferred Find Bar Width
    * Set to 0px for minimum width
    */
   --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
 
   /* Find Bar Distance from Window Corners */
-  --findbar-top: 12px;
-  --findbar-right: max(2vw, 24px); /* scrollbar is 12px */
+  --findbar-top: 8px;
+  --findbar-right: max(2vw, 16px); /* scrollbar is 12px */
 
   /* Show/Hide Find Bar Options
    * Show: 1
@@ -323,11 +334,6 @@
  *    `--'  `--' `--'`------' `-----'  
  */
 
-/* always positions tabs first */
-#tabbrowser-tabs {
-  order: -1 !important;
-}
-
 /* hide default border, padding, and margin left of tabs */
 #tabbrowser-tabs {
   border-inline-start: none !important;
@@ -383,11 +389,11 @@
 
 
 
-/* ,--------. ,-----.  ,-----. ,--.   ,-----.    ,---.  ,------.  
- * '--.  .--''  .-.  ''  .-.  '|  |   |  |) /_  /  O  \ |  .--. ' 
- *    |  |   |  | |  ||  | |  ||  |   |  .-.  \|  .-.  ||  '--'.' 
- *    |  |   '  '-'  ''  '-'  '|  '--.|  '--' /|  | |  ||  |\  \  
- *    `--'    `-----'  `-----' `-----'`------' `--' `--'`--' '--' 
+/* ,-----.   ,-----.  ,-----. ,--. ,--.,--.   ,--.  ,---.  ,------. ,--. ,--. ,---.   
+ * |  |) /_ '  .-.  ''  .-.  '|  .'   /|   `.'   | /  O  \ |  .--. '|  .'   /'   .-'  
+ * |  .-.  \|  | |  ||  | |  ||  .   ' |  |'.'|  ||  .-.  ||  '--'.'|  .   ' `.  `-.  
+ * |  '--' /'  '-'  ''  '-'  '|  |\   \|  |   |  ||  | |  ||  |\  \ |  |\   \.-'    | 
+ * `------'  `-----'  `-----' `--' '--'`--'   `--'`--' `--'`--' '--'`--' '--'`-----'  
  */
 
 /* dynamic bookmarks toolbar */
@@ -398,7 +404,7 @@
     z-index: 9999 !important;
     overflow: visible !important;
   }
-  #PersonalToolbar:not(:has(toolbarpaletteitem)) {
+  #PersonalToolbar:not([customizing]) {
     position: absolute !important;
     top: 100% !important;
     opacity: 0 !important;
@@ -435,6 +441,48 @@
   }
 }
 
+/* floating bookmarks toolbar */
+@container style(--dynamic-bookmarks: 1) and style(--floating-bookmarks: 1) {
+  #PersonalToolbar:not([customizing]) {
+    margin-top: var(--floating-bookmarks-top) !important;
+    padding-inline: 2px !important;
+    border-radius: var(--panel-border-radius) !important;
+    box-shadow: var(--panel-box-shadow) !important;
+    overflow: visible !important;
+  }
+  /* large window */
+  @media (min-width: 1200px) {
+    #PersonalToolbar:not([customizing]) {
+      width: auto !important;
+      margin-left: var(--floating-bookmarks-inline) !important;
+      margin-right: var(--floating-bookmarks-inline) !important;
+      min-width: calc(var(--navbar-width) - var(--floating-bookmarks-inline)) !important;
+      max-width: calc(100% - 2*var(--floating-bookmarks-inline)) !important;
+    }
+  }
+  /* small window */
+  @media (max-width: 1200px) {
+    #PersonalToolbar:not([customizing]) {
+      width: auto !important;
+      left: var(--floating-bookmarks-inline) !important;
+      right: var(--floating-bookmarks-inline) !important;
+    }
+  }
+
+  /* Create an invisible "hover bridge" across the floating margin */
+  #PersonalToolbar:not([customizing])::before {
+    content: "";
+    position: absolute;
+    top: calc(0px - var(--floating-bookmarks-top));
+    width: 100%;
+    height: calc(50% + var(--floating-bookmarks-top));
+    pointer-events: none;
+  }
+  #navigator-toolbox:not(:has(#urlbar[open])):has(#urlbar-container:hover, #PersonalToolbar:hover) #PersonalToolbar:not([customizing])::before{
+    pointer-events: auto;
+  }
+}
+
 /* toolbar button margins */ 
 #PersonalToolbar toolbarbutton {
   margin-top: 4px !important;
@@ -453,30 +501,33 @@
  * | | Find in page                                               | | /\ | \/ | | >< | |
  * |  ————————————————————————————————————————————————————————————   ———— ————   ————  |
  *  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
- *  8                        {textboxWidth}                        8  28   28  8  30 8                                   = 118px + {textboxWidth}
+ *  4                        {textboxWidth}                        8  28   28  8  28  4                                  = 108px + {textboxWidth}
  *  _______________________________________________________________________________________________________________
  * |  ————————————————————————————————————————————————————————————   ———— ————   ————   ————   ————   ————   ————  |
  * | | Find in page                                               | | /\ | \/ | |[ab]| | Aa | | aá | | a̲b̲ | | >< | |
  * |  ————————————————————————————————————————————————————————————   ———— ————   ————   ————   ————   ————   ————  |
  *  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
- *  8                        {textboxWidth}                        8  28   28  8       {optionsWidth}         30 8       = 118px + {optionsWidth} + {textboxWidth}
+ *  4                        {textboxWidth}                        8  28   28  8       {optionsWidth}         28  4      = 108px + {optionsWidth} + {textboxWidth}
  */
 
 :root {
   --show-margin: round(up, calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words)) / 4));
-  --options-width: calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words))*38px + var(--show-margin)*4px);
+  --options-width: calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words))*38px + var(--show-margin)*6px);
 
   --findbar-min-width: calc(500px - 2 * var(--findbar-right)); /* minimum browser width = 500px */
   --findbar-min-width-expanded: calc(var(--findbar-min-width) + var(--options-width));
   --findbar-max-width: calc(100vw - 2 * var(--findbar-right));
   --findbar-width-use: clamp(var(--findbar-min-width-expanded), var(--findbar-width), var(--findbar-max-width));
 
-  --textbox-min-width: calc(var(--findbar-min-width) - 118px);
-  --textbox-width: calc(var(--findbar-width-use) - 118px - var(--options-width));
+  --textbox-min-width: calc(var(--findbar-min-width) - 108px);
+  --textbox-width: calc(var(--findbar-width-use) - 108px - var(--options-width));
 }
 
 /* floating find bar */
 findbar {
+  --findbar-border-top-width: 0px !important;
+  --findbar-padding-block: 2px !important;
+
   position: absolute !important;
   grid-area: auto !important;
   top: var(--findbar-top) !important;
@@ -507,8 +558,9 @@ findbar {
   }
 }
 
-/* remove find bar container padding */
+/* format find bar container*/
 .findbar-container {
+  margin-inline-start: 4px !important;
   padding-inline-start: 0px !important;
 }
 
@@ -532,7 +584,7 @@ findbar {
 /* position found matches label */
 label.found-matches {
   position: absolute !important;
-  right: calc(100% - var(--textbox-width)) !important;
+  right: calc(100% - var(--textbox-width) - 4px + var(--space-medium)) !important;
   text-align: right !important;
   margin: 0px !important;
 }
@@ -624,5 +676,7 @@ label.found-matches {
 
 /* format close button */
 .findbar-closebutton {
-  margin-left: calc(4px * var(--show-margin)) !important;
+  margin-left: calc(6px * var(--show-margin)) !important;
+  margin-right: 4px !important;
+  border: none !important;
 }

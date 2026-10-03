@@ -6,26 +6,29 @@
  */
 
 :root {
-  /* Navigation Bar Width
-   * Max width is applied when url bar is expanded.
-   */
+  /* Navigation Bar Width*/
   --navbar-width: max(35vw, 500px);
-  --navbar-max-width: max(60vw, 800px);
+
+  /* URL Bar Open Width
+   * Applied when the URL bar is open.
+   * Set to auto to keep width unchanged.
+   */
+  --urlbar-open-width: max(60vw, 800px);
 
   /* Dynamic Tab Width */
   --active-tab-width: clamp(100px, 24vw, 240px);    
   --inactive-tab-width: clamp(100px, 18vw, 180px);
 
   /* Dynamic Toolbar Buttons Hover Delay
-   * Hover hamburger menu to reveal additional toolbar buttons
+   * Hover hamburger menu to reveal additional toolbar buttons.
    */
   --dynamic-buttons-hover-delay: 450ms;
 
   /* Dynamic Bookmarks Toolbar
-   * If enabled, hide bookmarks toolbar and show when url bar is hovered
-   * Ensure bookmarks toolbar is set to "always show" for proper behavior
-   * Enabled: 1
-   * Disabled: 0
+   * If enabled, hide bookmarks toolbar and show when url bar is hovered.
+   * Ensure bookmarks toolbar is set to "always show" for proper behavior.
+   * 0: Disabled
+   * 1: Enabled
    */
   --dynamic-bookmarks: 1;
 
@@ -36,28 +39,37 @@
   --dynamic-bookmarks-hide-delay: 50ms;
 
   /* Floating Bookmarks Toolbar
-   * (Only with Dynamic Bookmarks Toolbar enabled)
-   * Enabled: 1
-   * Disabled: 0
+   * (Only with dynamic bookmarks toolbar enabled)
+   * 0: Disabled
+   * 1: Enabled
    */
   --floating-bookmarks: 1;
 
-  /* Floating Bookmars Toolbar Distance from Window Corners */
-  --floating-bookmarks-top: 4px;
-  --floating-bookmarks-inline: 6px;
-
-  /* Preferred Find Bar Width
-   * Set to 0px for minimum width
+  /* Floating Bookmarks Toolbar Width Mode
+   * Controls how the floating bookmarks toolbar sizes itself in one-line layout.
+   * 0 : Dynamic - Minimum width aligns with the navigation bar.
+   * 1 : Compact - Shrinks to wrap tightly around bookmarks.
+   * 2 : Full    - Spans from the left edge to the right edge of the window.
    */
-  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
+   --floating-bookmarks-width-mode: 0;
+
+  /* Floating Bookmars Toolbar Distance from Window Corners */
+  --floating-bookmarks-top: 6px;
+  --floating-bookmarks-inline: 8px;
+
+  /* Find Bar Width
+   * Set to 0px for minimum width.
+   * Set to 100vw for maximum width.
+   */
+  --findbar-width: calc(var(--findbar-min-width) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width)) * 0.12);
 
   /* Find Bar Distance from Window Corners */
-  --findbar-top: 8px;
-  --findbar-right: max(2vw, 16px); /* scrollbar is 12px */
+  --findbar-top: 12px;
+  --findbar-right: max(2cqw, 16px);
 
   /* Show/Hide Find Bar Options
-   * Show: 1
-   * Hide: 0
+   * 0: Hide
+   * 1: Show
    */
   --show-highlight-all:    1;
   --show-match-case:       1;
@@ -117,7 +129,7 @@
 
 /* large window one-line layout */
 @media (min-width: 1200px) {
-  /* do not apply to web apps */
+  /* only apply when the horizontal tab strip is shown */
   #navigator-toolbox:not([tabs-hidden]) {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -132,35 +144,17 @@
       width: var(--navbar-width) !important;
       z-index: 9999 !important;
     }
-    & #nav-bar:has(#urlbar[open]) {
-      width: var(--navbar-max-width) !important;
+    & #urlbar[open] {
+      width: var(--urlbar-open-width) !important;
+      z-index: 9999 !important;
     }
     & #TabsToolbar {
       order: 2;
-      width: calc(100% - var(--navbar-width)) !important;
-    }
-    &:has(#urlbar[open]) #TabsToolbar {
-      margin-left: calc(var(--navbar-width) - var(--navbar-max-width)) !important;
     }
     & #PersonalToolbar {
       order: 3;
     }
   }
-}
-
-/* web app layout */
-#navigator-toolbox[tabs-hidden] {
-  /* add margin left of title bar buttons to match one-line layout*/
-  & .titlebar-buttonbox-container {
-    margin-left: calc(100% - var(--navbar-width) - 138px) !important;
-  }
-  /* web app icon */
-  & #taskbar-tabs-favicon {
-    order: -2 !important;
-    padding-inline-start: var(--toolbar-padding-inline) !important;
-    padding-inline-end: var(--toolbarbutton-padding-outer) !important;
-  }
-
 }
 
 /* enforce bookmarks toolbar width */
@@ -183,16 +177,24 @@
   border: none !important;
 }
 
+/* web app icon */
+#taskbar-tabs-favicon {
+  order: -2 !important;
+  margin: auto var(--toolbarbutton-padding-inner) !important;
+  padding-inline-start: var(--toolbar-padding-inline) !important;
+  padding-inline-end: var(--toolbarbutton-padding-outer) !important;
+}
+
 /* hamburger menu */
 #PanelUI-button {
   order: -1 !important;
 }
 #PanelUI-menu-button {
-  padding-inline-start: var(--toolbar-padding-inline) !important;
   padding-inline-end: var(--toolbarbutton-padding-outer) !important;
-}
-#navigator-toolbox[tabs-hidden] #PanelUI-menu-button {
-  padding-inline-start: 0px !important;
+
+  :root:not([taskbartab]) & {
+    padding-inline-start: var(--toolbar-padding-inline) !important;
+  }
 }
 
 /* dynamic toolbar buttons */
@@ -334,32 +336,38 @@
  *    `--'  `--' `--'`------' `-----'  
  */
 
-/* hide default border, padding, and margin left of tabs */
-#tabbrowser-tabs {
-  border-inline-start: none !important;
-  padding-inline-start: 0px !important;
-  margin-inline-start: 0px !important;
-}
+/* horizontal tabs */
+#navigator-toolbox:not([tabs-hidden]) {
 
-/* add padding left of first tab (small window) */
-@media (max-width: 1200px) {
-  #pinned-tabs-container, #tabbrowser-tabs:not([overflow], :has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox {
-    /* & > .tabbrowser-tab:first-child, & > tab-group:first-child > .tab-group-label-container { */
-    & > tab-group:first-child > .tab-group-label-container {
-      padding-inline-start: var(--tab-overflow-clip-margin) !important;
+  /* hide default border, padding, and margin left of tabs */
+  #tabbrowser-tabs {
+    border-inline-start: none !important;
+    padding-inline-start: 0px !important;
+    margin-inline-start: 0px !important;
+  }
+
+  /* add padding left of first tab (small window) */
+  @media (max-width: 1200px) {
+    #pinned-tabs-container, #tabbrowser-tabs:not([overflow], :has(#pinned-tabs-container > .tabbrowser-tab)) #tabbrowser-arrowscrollbox {
+      /* & > .tabbrowser-tab:first-child, & > tab-group:first-child > .tab-group-label-container { */
+      & > tab-group:first-child > .tab-group-label-container {
+        padding-inline-start: var(--tab-overflow-clip-margin) !important;
+      }
     }
   }
-}
 
-/* add margin right of tabs so that there is always a draggable area */
-#tabbrowser-tabs:not(:has(+ #new-tab-button)),
-#TabsToolbar-customization-target:has(#tabbrowser-tabs + #new-tab-button) :is(#new-tab-button, #tabs-newtab-button) {
-  margin-right: 40px !important;
-}
+  /* remove gap after pinned tabs */
+  #pinned-tabs-container {
+    margin-inline-end: 0px !important;
+  }
 
-/* remove gap after pinned tabs */
-#pinned-tabs-container {
-  margin-inline-end: 0px !important;
+  /* dynamic tab width */
+  .tabbrowser-tab[selected]:not([pinned]) {
+    max-width: var(--active-tab-width) !important;
+  }
+  :not([collapsed]) > .tabbrowser-tab[fadein]:not([selected], [pinned]) {
+    max-width: var(--inactive-tab-width) !important;
+  }
 }
 
 /* hide tab border */
@@ -377,14 +385,6 @@
 }
 .tabbrowser-tab:not([pinned]):hover .tab-close-button {
   display: inline-block !important;
-}
-
-/* dynamic tab width */
-.tabbrowser-tab[selected]:not([pinned]) {
-  max-width: var(--active-tab-width) !important;
-}
-:not([collapsed]) > .tabbrowser-tab[fadein]:not([selected], [pinned]) {
-  max-width: var(--inactive-tab-width) !important;
 }
 
 
@@ -444,6 +444,7 @@
 /* floating bookmarks toolbar */
 @container style(--dynamic-bookmarks: 1) and style(--floating-bookmarks: 1) {
   #PersonalToolbar:not([customizing]) {
+    width: auto !important;
     margin-top: var(--floating-bookmarks-top) !important;
     padding-inline: 2px !important;
     border-radius: var(--panel-border-radius) !important;
@@ -452,18 +453,40 @@
   }
   /* large window */
   @media (min-width: 1200px) {
-    #PersonalToolbar:not([customizing]) {
-      width: auto !important;
-      margin-left: var(--floating-bookmarks-inline) !important;
-      margin-right: var(--floating-bookmarks-inline) !important;
-      min-width: calc(var(--navbar-width) - var(--floating-bookmarks-inline)) !important;
-      max-width: calc(100% - 2*var(--floating-bookmarks-inline)) !important;
+    /* --floating-bookmarks-width-mode = 0: dynamic*/
+    @container style(--floating-bookmarks-width-mode: 0) {
+      #navigator-toolbox:not([tabs-hidden]) #PersonalToolbar:not([customizing]) {
+        min-width: calc(var(--navbar-width) - var(--floating-bookmarks-inline)) !important;
+        max-width: calc(100% - 2*var(--floating-bookmarks-inline)) !important;
+        margin-left: var(--floating-bookmarks-inline) !important;
+        margin-right: var(--floating-bookmarks-inline) !important;
+      }
+    }
+    /* --floating-bookmarks-width-mode = 1: compact */
+    @container style(--floating-bookmarks-width-mode: 1) {
+      #navigator-toolbox:not([tabs-hidden]) #PersonalToolbar:not([customizing]) {
+        width: auto !important;
+        max-width: calc(100% - 2*var(--floating-bookmarks-inline)) !important;
+        margin-left: var(--floating-bookmarks-inline) !important;
+        margin-right: var(--floating-bookmarks-inline) !important;
+      }
+    }
+    /* --floating-bookmarks-width-mode = 2: full */
+    @container style(--floating-bookmarks-width-mode: 2) {
+      #PersonalToolbar:not([customizing]) {
+        left: var(--floating-bookmarks-inline) !important;
+        right: var(--floating-bookmarks-inline) !important;
+      }
+    }
+    /* web apps, vertical tabs: always maximum width */
+    #navigator-toolbox[tabs-hidden] #PersonalToolbar:not([customizing]) {
+      left: var(--floating-bookmarks-inline) !important;
+      right: var(--floating-bookmarks-inline) !important;
     }
   }
   /* small window */
   @media (max-width: 1200px) {
     #PersonalToolbar:not([customizing]) {
-      width: auto !important;
       left: var(--floating-bookmarks-inline) !important;
       right: var(--floating-bookmarks-inline) !important;
     }
@@ -491,6 +514,24 @@
 
 
 
+/*  ,---.  ,--.,------.  ,------.,-----.    ,---.  ,------.  
+ * '   .-' |  ||  .-.  \ |  .---'|  |) /_  /  O  \ |  .--. ' 
+ * `.  `-. |  ||  |  \  :|  `--, |  .-.  \|  .-.  ||  '--'.' 
+ * .-'    ||  ||  '--'  /|  `---.|  '--' /|  | |  ||  |\  \  
+ * `-----' `--'`-------' `------'`------' `--' `--'`--' '--' 
+ */
+
+#sidebar-main, #browser {
+  background-color: inherit !important;
+}
+@container style(--dynamic-bookmarks: 0) {
+  #main-window:has(#navigator-toolbox:not([tabs-hidden])) :is(#sidebar-main, #browser) {
+    background-image: linear-gradient(var(--toolbar-background-color), var(--toolbar-background-color)) !important;
+  }
+}
+
+
+
 /* ,------.,--.,--.  ,--.,------.         ,-----.    ,---.  ,------.  
  * |  .---'|  ||  ,'.|  ||  .-.  \ ,-----.|  |) /_  /  O  \ |  .--. ' 
  * |  `--, |  ||  |' '  ||  |  \  :'-----'|  .-.  \|  .-.  ||  '--'.' 
@@ -501,54 +542,56 @@
  * | | Find in page                                               | | /\ | \/ | | >< | |
  * |  ————————————————————————————————————————————————————————————   ———— ————   ————  |
  *  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
- *  4                        {textboxWidth}                        8  28   28  8  28  4                                  = 108px + {textboxWidth}
+ *  6                        {textboxWidth}                        8  28   28  8  28  6                                  = 112px + {textboxWidth}
  *  _______________________________________________________________________________________________________________
  * |  ————————————————————————————————————————————————————————————   ———— ————   ————   ————   ————   ————   ————  |
  * | | Find in page                                               | | /\ | \/ | |[ab]| | Aa | | aá | | a̲b̲ | | >< | |
  * |  ————————————————————————————————————————————————————————————   ———— ————   ————   ————   ————   ————   ————  |
  *  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
- *  4                        {textboxWidth}                        8  28   28  8       {optionsWidth}         28  4      = 108px + {optionsWidth} + {textboxWidth}
+ *  6                        {textboxWidth}                        8  28   28  8       {optionsWidth}         28  6      = 112px + {optionsWidth} + {textboxWidth}
  */
 
 :root {
-  --show-margin: round(up, calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words)) / 4));
-  --options-width: calc((var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words))*38px + var(--show-margin)*6px);
+  --options-count: calc(var(--show-highlight-all) + var(--show-match-case) + var(--show-match-diacritics) + var(--show-whole-words));
+  --show-margin: min(1, var(--options-count));
 
-  --findbar-min-width: calc(500px - 2 * var(--findbar-right)); /* minimum browser width = 500px */
-  --findbar-min-width-expanded: calc(var(--findbar-min-width) + var(--options-width));
-  --findbar-max-width: calc(100vw - 2 * var(--findbar-right));
-  --findbar-width-use: clamp(var(--findbar-min-width-expanded), var(--findbar-width), var(--findbar-max-width));
+  /* width of everything except textbox */
+  --findbar-fixed-width: calc(112px + var(--options-count)*38px + var(--show-margin)*6px);
 
-  --textbox-min-width: calc(var(--findbar-min-width) - 108px);
-  --textbox-width: calc(var(--findbar-width-use) - 108px - var(--options-width));
+  --findbar-min-width: 600px;
+  --findbar-max-width: calc(100cqw - 2*var(--findbar-right));
+  --findbar-width-use: clamp(var(--findbar-min-width), var(--findbar-width), var(--findbar-max-width));
+
+  /* 1 = collapsed (min width >= max width), 0 = expanded (min width < max width) */
+  --is-collapsed: clamp(0, sign(var(--findbar-min-width) - var(--findbar-max-width)) + 1, 1);
+
+  --textbox-width-expanded:  calc((1 - var(--is-collapsed)) * (var(--findbar-width-use) - var(--findbar-fixed-width)));
+  --textbox-width-collapsed: calc((    var(--is-collapsed)) * (var(--findbar-max-width) - 112px                     ));
+  --textbox-width: max(var(--textbox-width-expanded), var(--textbox-width-collapsed))
+}
+
+.browserContainer {
+  container-type: inline-size !important;
 }
 
 /* floating find bar */
 findbar {
   --findbar-border-top-width: 0px !important;
-  --findbar-padding-block: 2px !important;
+  --findbar-padding-block: 4px !important;
 
   position: absolute !important;
   grid-area: auto !important;
   top: var(--findbar-top) !important;
-  left: var(--findbar-right) !important;
   right: var(--findbar-right) !important;
   width: var(--findbar-width-use) !important;
   max-width: var(--findbar-max-width) !important;
-  margin-left: auto !important;
   margin-bottom: 0 !important;
   border: none !important;
   border-radius: var(--panel-border-radius) !important;
   box-shadow: var(--panel-box-shadow) !important;
 }
 
-/* find bar background */
-#main-window:not([privatebrowsingmode]) findbar {
-  background-color: inherit !important;
-  background-image: linear-gradient(var(--toolbar-background-color), var(--toolbar-background-color)) !important;
-}
-
-/* find bar transiton */
+/* find bar transition */
 findbar {
   opacity: 1 !important;
   transform-origin: top !important;
@@ -562,16 +605,20 @@ findbar {
   }
 }
 
+/* find bar background */
+#main-window:not([privatebrowsingmode]) findbar {
+  background-color: inherit !important;
+  background-image: linear-gradient(var(--toolbar-background-color), var(--toolbar-background-color)) !important;
+}
+
 /* format find bar container*/
 .findbar-container {
-  margin-inline-start: 4px !important;
-  padding-inline-start: 0px !important;
+  margin-inline-start: var(--findbar-padding-block) !important;
 }
 
 /* format textbox */
 .findbar-textbox {
   width: var(--textbox-width) !important;
-  min-width: var(--textbox-min-width) !important;
   border: none !important;
 
   &:not([status]) {
@@ -681,6 +728,6 @@ label.found-matches {
 /* format close button */
 .findbar-closebutton {
   margin-left: calc(6px * var(--show-margin)) !important;
-  margin-right: 4px !important;
+  margin-right: calc(var(--findbar-padding-block) + var(--space-xsmall)) !important;
   border: none !important;
 }

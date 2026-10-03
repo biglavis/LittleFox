@@ -376,9 +376,10 @@
   }
 }
 
-/* hide tab border */
+/* hide tab border and outline*/
 .tab-background {
   border: none !important;
+  outline: none !important;
   /* selected tab background still leaks through; hide it */
   &[selected] {
     background: var(--tab-background-color-selected) !important;
@@ -616,6 +617,10 @@
   #main-window:not([privatebrowsingmode]) findbar {
     background-color: inherit !important;
     background-image: linear-gradient(var(--toolbar-background-color), var(--toolbar-background-color)) !important;
+
+    :root[lwtheme] & {
+      background-color: var(--lwt-accent-color) !important;
+    }
   }
 
   /* format find bar container*/

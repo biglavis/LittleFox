@@ -45,26 +45,29 @@ Several UI elements can be customized by modifying the variable values at the to
  */
 
 :root {
-  /* Navigation Bar Width
-   * Max width is applied when url bar is expanded.
-   */
+  /* Navigation Bar Width*/
   --navbar-width: max(35vw, 500px);
-  --navbar-max-width: max(60vw, 800px);
+
+  /* URL Bar Open Width
+   * Applied when the URL bar is open.
+   * Set to auto to keep width unchanged.
+   */
+  --urlbar-open-width: max(60vw, 800px);
 
   /* Dynamic Tab Width */
   --active-tab-width: clamp(100px, 24vw, 240px);    
   --inactive-tab-width: clamp(100px, 18vw, 180px);
 
   /* Dynamic Toolbar Buttons Hover Delay
-   * Hover hamburger menu to reveal additional toolbar buttons
+   * Hover hamburger menu to reveal additional toolbar buttons.
    */
   --dynamic-buttons-hover-delay: 450ms;
 
   /* Dynamic Bookmarks Toolbar
-   * If enabled, hide bookmarks toolbar and show when url bar is hovered
-   * Ensure bookmarks toolbar is set to "always show" for proper behavior
-   * Enabled: 1
-   * Disabled: 0
+   * If enabled, hide bookmarks toolbar and show when url bar is hovered.
+   * Ensure bookmarks toolbar is set to "always show" for proper behavior.
+   * 0: Disabled
+   * 1: Enabled
    */
   --dynamic-bookmarks: 1;
 
@@ -75,28 +78,37 @@ Several UI elements can be customized by modifying the variable values at the to
   --dynamic-bookmarks-hide-delay: 50ms;
 
   /* Floating Bookmarks Toolbar
-   * (Only with Dynamic Bookmarks Toolbar enabled)
-   * Enabled: 1
-   * Disabled: 0
+   * (Only with dynamic bookmarks toolbar enabled)
+   * 0: Disabled
+   * 1: Enabled
    */
   --floating-bookmarks: 1;
 
-  /* Floating Bookmars Toolbar Distance from Window Corners */
-  --floating-bookmarks-top: 4px;
-  --floating-bookmarks-inline: 6px;
-
-  /* Preferred Find Bar Width
-   * Set to 0px for minimum width
+  /* Floating Bookmarks Toolbar Width Mode
+   * Controls how the floating bookmarks toolbar sizes itself in one-line layout.
+   * 0 : Dynamic - Minimum width aligns with the navigation bar.
+   * 1 : Compact - Shrinks to wrap tightly around bookmarks.
+   * 2 : Full    - Spans from the left edge to the right edge of the window.
    */
-  --findbar-width: calc(var(--findbar-min-width-expanded) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width-expanded)) * 0.12);
+   --floating-bookmarks-width-mode: 0;
+
+  /* Floating Bookmars Toolbar Distance from Window Corners */
+  --floating-bookmarks-top: 6px;
+  --floating-bookmarks-inline: 8px;
+
+  /* Find Bar Width
+   * Set to 0px for minimum width.
+   * Set to 100vw for maximum width.
+   */
+  --findbar-width: calc(var(--findbar-min-width) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width)) * 0.12);
 
   /* Find Bar Distance from Window Corners */
-  --findbar-top: 8px;
-  --findbar-right: max(2vw, 16px); /* scrollbar is 12px */
+  --findbar-top: 12px;
+  --findbar-right: max(2cqw, 16px);
 
   /* Show/Hide Find Bar Options
-   * Show: 1
-   * Hide: 0
+   * 0: Hide
+   * 1: Show
    */
   --show-highlight-all:    1;
   --show-match-case:       1;

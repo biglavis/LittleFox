@@ -96,17 +96,23 @@ Several UI elements can be customized by modifying the variable values at the to
   --floating-bookmarks-top: 6px;
   --floating-bookmarks-inline: 8px;
 
-  /* Find Bar Width
+  /* Floating Find Bar
+   * 0: Disabled
+   * 1: Enabled
+   */
+  --floating-findbar: 1;
+
+  /* Floating Find Bar Width
    * Set to 0px for minimum width.
    * Set to 100vw for maximum width.
    */
-  --findbar-width: calc(var(--findbar-min-width) + (100vw - 2 * var(--findbar-right) - var(--findbar-min-width)) * 0.12);
+  --floating-findbar-width: calc(var(--floating-findbar-min-width) + (100vw - 2 * var(--floating-findbar-right) - var(--floating-findbar-min-width)) * 0.12);
 
-  /* Find Bar Distance from Window Corners */
-  --findbar-top: 12px;
-  --findbar-right: max(2cqw, 16px);
+  /* Floating Find Bar Distance from Window Corners */
+  --floating-findbar-top: 12px;
+  --floating-findbar-right: max(2cqw, 16px);
 
-  /* Show/Hide Find Bar Options
+  /* Show/Hide Floating Find Bar Options
    * 0: Hide
    * 1: Show
    */
@@ -115,7 +121,7 @@ Several UI elements can be customized by modifying the variable values at the to
   --show-match-diacritics: 1;
   --show-whole-words:      1;
 
-  /* Find Bar Options Position */
+  /* Floating Find Bar Options Position */
   --highlight-all-position:    0;
   --match-case-position:       1;
   --match-diacritics-position: 2;

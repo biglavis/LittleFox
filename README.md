@@ -106,7 +106,7 @@ Several UI elements can be customized by modifying the variable values at the to
    * Set to 0px for minimum width.
    * Set to 100vw for maximum width.
    */
-  --floating-findbar-width: calc(var(--floating-findbar-min-width) + (100vw - 2 * var(--floating-findbar-right) - var(--floating-findbar-min-width)) * 0.12);
+  --floating-findbar-width: calc(var(--floating-findbar-min-width) + (100cqw - 2 * var(--floating-findbar-right) - var(--floating-findbar-min-width)) * 0.12);
 
   /* Floating Find Bar Distance from Window Corners */
   --floating-findbar-top: 12px;

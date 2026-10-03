@@ -583,8 +583,8 @@
 
   /* format find bar */
   findbar {
-    --floating-findbar-border-top-width: 0px !important;
-    --floating-findbar-padding-block: 4px !important;
+    --findbar-border-top-width: 0px !important;
+    --findbar-padding-block: 4px !important;
 
     position: absolute !important;
     grid-area: auto !important;
@@ -620,7 +620,7 @@
 
   /* format find bar container*/
   .findbar-container {
-    margin-inline-start: var(--floating-findbar-padding-block) !important;
+    margin-inline-start: var(--findbar-padding-block) !important;
   }
 
   /* format textbox */
@@ -735,7 +735,7 @@
   /* format close button */
   .findbar-closebutton {
     margin-left: calc(6px * var(--show-margin)) !important;
-    margin-right: calc(var(--floating-findbar-padding-block) + var(--space-xsmall)) !important;
+    margin-right: calc(var(--findbar-padding-block) + var(--space-xsmall)) !important;
     border: none !important;
   }
 }
